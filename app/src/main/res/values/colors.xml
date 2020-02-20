@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorLightGrey">#CCDADADA</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorPrimary">#FFC400</color>
-    <color name="colorPrimaryDark">#FFAB00</color>
-    <color name="colorAmber300">#FFD54F</color>
-    <color name="colorAmber300_60percent">#99FFD54F</color>
-    <color name="colorAmber900">#FF6F00</color>
-    <color name="colorAccent">#400ED6</color>
+    <color name="colorPrimary">#1a1a30</color>
+    <color name="colorPrimaryDark">#000008</color>
+    <color name="colorPrimaryLight">#928FB1</color>
+    <!--Color Secondary -->
+    <color name="colorSecondary">#0f1317</color>
+    <color name="colorSecondaryLight">#757E86</color>
+    <color name="colorSecondaryDark">#000000</color>
 </resources>

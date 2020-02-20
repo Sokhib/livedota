@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/h_bottom_nav"
             android:background="?android:attr/windowBackground"
-            app:itemBackground="@color/colorWhite"
+            app:itemBackground="@color/colorSecondaryDark"
             app:itemIconTint="@color/bottom_nav_color"
             app:itemTextColor="@color/bottom_nav_color"
             app:layout_constraintBottom_toBottomOf="parent"

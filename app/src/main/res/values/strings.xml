@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">livedota</string>
+    <string name="app_name">Livedota</string>
     <string name="matches">Matches</string>
     <string name="favorites">Favorites</string>
     <string name="search">Search</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="finished">Final</string>
+    <string name="team_logo">Team Logo</string>
+    <string name="tournament_logo">Tournament Logo</string>
+    <string name="radiant_team_logo">Radiant Team Logo</string>
+    <string name="dire_team_logo">Dire Team Logo</string>
 </resources>

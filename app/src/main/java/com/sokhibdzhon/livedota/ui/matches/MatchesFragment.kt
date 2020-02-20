@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.sokhibdzhon.livedota.R
+import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
 
 class MatchesFragment : Fragment() {
 
@@ -14,13 +16,16 @@ class MatchesFragment : Fragment() {
         fun newInstance() = MatchesFragment()
     }
 
+    private lateinit var binding: MatchesFragmentBinding
     private lateinit var viewModel: MatchesViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.matches_fragment, container, false)
+        //binding = MatchesFragmentBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.matches_fragment, container, false)
+
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
