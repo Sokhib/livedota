@@ -1,7 +1,7 @@
 package com.sokhibdzhon.livedota.data.network
 
 import com.sokhibdzhon.livedota.data.Resource
-import com.sokhibdzhon.livedota.data.network.response.ProMatches
+import com.sokhibdzhon.livedota.data.network.model.ProMatches
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 

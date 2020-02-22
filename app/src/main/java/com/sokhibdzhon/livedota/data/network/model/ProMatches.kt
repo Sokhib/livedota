@@ -1,4 +1,4 @@
-package com.sokhibdzhon.livedota.data.network.response
+package com.sokhibdzhon.livedota.data.network.model
 
 
 import com.google.gson.annotations.SerializedName
