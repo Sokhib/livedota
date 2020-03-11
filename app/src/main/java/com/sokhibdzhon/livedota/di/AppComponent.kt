@@ -1,6 +1,8 @@
 package com.sokhibdzhon.livedota.di
 
-import com.sokhibdzhon.livedota.ui.main.MainActivity
+import android.content.Context
+import com.sokhibdzhon.livedota.ui.matches.MatchesFragment
+import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,8 +15,13 @@ import javax.inject.Singleton
 ╚═════════════════════════════════════╝
  */
 @Singleton
-@Component(modules = [NetworkModule::class, DataModule::class])
+@Component(modules = [NetworkModule::class])
 interface AppComponent {
-    fun inject(activity: MainActivity)
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance context: Context): AppComponent
+    }
+
+    fun inject(matchesFragment: MatchesFragment)
 
 }

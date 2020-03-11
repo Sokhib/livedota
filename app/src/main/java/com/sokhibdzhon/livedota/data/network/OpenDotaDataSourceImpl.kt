@@ -15,11 +15,10 @@ import javax.inject.Inject
 ╚═════════════════════════════════════╝
  */
 
-// Implementation yaratma sebebi farkli API'lerden farkli proMatches'leri almak
-//Resource.error    <List<ProMatches>> ne kadar dogru?
+//TODO: Implementation yaratma sebebi farkli API'lerden farkli proMatches'leri almak
 
-class OpenDotaDataSourceImpl @Inject constructor(val openDotaApiServiceProvider: OpenDotaApiServiceProvider) :
-    OpenDotaDataSource {
+class OpenDotaDataSourceImpl @Inject constructor(val openDotaApiServiceProvider: DotaApiServiceProvider) :
+    DotaDataSource {
     override fun fetchProMatches(): Flow<Resource<List<ProMatches>>> = flow {
         emit(Resource.loading())
         try {

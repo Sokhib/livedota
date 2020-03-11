@@ -1,6 +1,7 @@
 package com.sokhibdzhon.livedota
 
 import android.app.Application
+import com.sokhibdzhon.livedota.di.AppComponent
 import com.sokhibdzhon.livedota.di.DaggerAppComponent
 
 
@@ -13,5 +14,7 @@ import com.sokhibdzhon.livedota.di.DaggerAppComponent
  */
 
 class BaseApplication : Application() {
-    val appGraph = DaggerAppComponent.create()
+    val appGraph: AppComponent by lazy {
+        DaggerAppComponent.factory().create(this)
+    }
 }
