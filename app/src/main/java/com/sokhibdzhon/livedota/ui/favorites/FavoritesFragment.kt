@@ -26,7 +26,6 @@ class FavoritesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }
