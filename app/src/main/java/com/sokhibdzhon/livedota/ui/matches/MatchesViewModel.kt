@@ -3,25 +3,37 @@ package com.sokhibdzhon.livedota.ui.matches
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sokhibdzhon.livedota.data.Resource
+import androidx.lifecycle.viewModelScope
 import com.sokhibdzhon.livedota.data.network.OpenDotaDataSourceImpl
-import com.sokhibdzhon.livedota.data.network.model.ProMatches
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaDataSourceImpl) :
     ViewModel() {
+    private val _proMatchesLiveData: MutableLiveData<MatchesFragmentViewState> = MutableLiveData()
+
     init {
         loadProMatches()
     }
 
-    private val _proMatchesLiveData: MutableLiveData<Resource<List<ProMatches>>> =
-        MutableLiveData()
-    val proMatchesLiveData: LiveData<Resource<List<ProMatches>>>
+    val proMatchesLiveData: LiveData<MatchesFragmentViewState>
         get() = _proMatchesLiveData
 
+    //TODO: Other way to get it which is better ?
+//    val data
+//        get() = _data
+//    private val _data =
+//        openDotaDataSourceImpl.fetchProMatches().asLiveData(viewModelScope.coroutineContext)
+
+    //TODO: Transform livedata to another.
+
+
     fun loadProMatches() {
-        //TODO: Get and work on data
+        openDotaDataSourceImpl.fetchProMatches()
+            .onEach {
+                _proMatchesLiveData.value = combineMatches(it)
+            }.launchIn(viewModelScope)
+
     }
-
-
 }

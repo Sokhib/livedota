@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
 import javax.inject.Inject
 
+//TODO: Fix recyclerView margin
 class MatchesFragment : Fragment() {
 
     companion object {
@@ -25,6 +27,9 @@ class MatchesFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    @Inject
+    lateinit var matchesAdapter: MatchesAdapter
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity!!.applicationContext as BaseApplication).appGraph.inject(this)
@@ -35,6 +40,8 @@ class MatchesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.matches_fragment, container, false)
+
+        binding.recyclerMatches.adapter = matchesAdapter
         return binding.root
     }
 
@@ -43,6 +50,12 @@ class MatchesFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MatchesViewModel::class.java)
 
-    }
+        viewModel.proMatchesLiveData.observe(viewLifecycleOwner, Observer {
+            matchesAdapter.setMatchList(it.getProMatches())
 
+            binding.viewState = it
+            binding.executePendingBindings()
+
+        })
+    }
 }
