@@ -1,6 +1,5 @@
 package com.sokhibdzhon.livedota.ui.matches
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sokhibdzhon.livedota.data.network.model.ProMatches
@@ -34,7 +33,6 @@ class MatchesAdapter @Inject constructor() : RecyclerView.Adapter<MatchesViewHol
     override fun getItemCount() = matchesList.size
 
     override fun onBindViewHolder(holder: MatchesViewHolder, position: Int) {
-        Log.d("MatchesAdapter", "${matchesList[position]}")
         return holder.bind(matchesList[position])
     }
 

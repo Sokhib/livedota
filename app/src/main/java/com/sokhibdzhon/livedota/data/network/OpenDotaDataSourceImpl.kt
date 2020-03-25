@@ -9,10 +9,10 @@ import javax.inject.Inject
 
 /**     I ❤ Code:)
 ╔═══════════════════════════════════════╗
-║  Created by Sokhibdzhon Saidmuratov  ║
-╠══════════════════════════════════════╣
-║ sokhibsaid@gmail.com                ║
-╚═════════════════════════════════════╝
+║  Created by Sokhibdzhon Saidmuratov   ║
+╠═══════════════════════════════════════╣
+║ sokhibsaid@gmail.com                  ║
+╚═══════════════════════════════════════╝
  */
 
 //TODO: Implementation yaratma sebebi farkli API'lerden farkli proMatches'leri almak

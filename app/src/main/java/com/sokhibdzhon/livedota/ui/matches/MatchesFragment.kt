@@ -9,12 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
 import javax.inject.Inject
 
 //TODO: Fix recyclerView margin
+//TODO: ViewState'i alarak degil de Resource'u alarak burda yapmak ne kadar dogru?
 class MatchesFragment : Fragment() {
 
     companion object {
@@ -41,7 +43,18 @@ class MatchesFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.matches_fragment, container, false)
 
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.loadProMatches()
+            binding.swipeRefresh.isRefreshing = false
+        }
+
         binding.recyclerMatches.adapter = matchesAdapter
+        binding.recyclerMatches.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         return binding.root
     }
 
@@ -52,7 +65,6 @@ class MatchesFragment : Fragment() {
 
         viewModel.proMatchesLiveData.observe(viewLifecycleOwner, Observer {
             matchesAdapter.setMatchList(it.getProMatches())
-
             binding.viewState = it
             binding.executePendingBindings()
 

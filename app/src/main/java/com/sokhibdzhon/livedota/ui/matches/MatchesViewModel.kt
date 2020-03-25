@@ -20,15 +20,17 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
     val proMatchesLiveData: LiveData<MatchesFragmentViewState>
         get() = _proMatchesLiveData
 
-    //TODO: Other way to get it which is better ?
-//    val data
-//        get() = _data
+    //    TODO: Other way to get it which is better ?
 //    private val _data =
 //        openDotaDataSourceImpl.fetchProMatches().asLiveData(viewModelScope.coroutineContext)
+//
+//    val data: LiveData<Resource<List<ProMatches>>>
+//        get() = _data
+
 
     //TODO: Transform livedata to another.
 
-
+    //TODO: OnRefresh load matches.
     fun loadProMatches() {
         openDotaDataSourceImpl.fetchProMatches()
             .onEach {
