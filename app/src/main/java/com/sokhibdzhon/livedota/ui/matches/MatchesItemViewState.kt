@@ -16,7 +16,7 @@ data class MatchesItemViewState(val match: ProMatches) {
     fun getDireName(): String = match.direName
     fun getDireScore(): Int = match.direScore
     fun getDireSeriesScore(): Int = match.direSeriesScore
-    fun getDuration(): Int = AppUtil.secondsToMinutes(match.duration).toInt()
+    fun getDuration(): String = "${AppUtil.secondsToMinutes(match.duration).toInt()}'"
     fun getLeagueName(): String = match.leagueName
     fun getRadiantName(): String = match.radiantName
     fun getRadiantScore(): Int = match.radiantScore

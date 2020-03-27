@@ -55,14 +55,14 @@
             android:layout_marginTop="@dimen/margin_8dp"
             android:layout_marginEnd="@dimen/margin_16dp"
             android:fontFamily="sans-serif-condensed-medium"
-            android:text="@{String.valueOf(viewState.duration)}"
+            android:text="@{viewState.duration}"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/tournament_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            tools:text="8:09AM " />
+            tools:text="25 mins" />
 
         <ImageView
             android:id="@+id/radiant_team_logo"

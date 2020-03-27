@@ -13,12 +13,12 @@ import com.sokhibdzhon.livedota.data.network.model.ProMatches
 ║ sokhibsaid@gmail.com                  ║
 ╚═══════════════════════════════════════╝
  */
-
+//TODO: Show error page/dialog when no internet connection.
 data class MatchesFragmentViewState(private val proMatchesResource: Resource<List<ProMatches>>) {
 
     fun getProMatches() = proMatchesResource.data ?: arrayListOf()
 
-    fun getProMatchesVisibility(): Int {
+    fun getProMatchesProgressBarVisibility(): Int {
         return when (proMatchesResource.status) {
             Status.LOADING -> View.VISIBLE
             else -> View.GONE

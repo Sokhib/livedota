@@ -28,9 +28,6 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
 //        get() = _data
 
 
-    //TODO: Transform livedata to another.
-
-    //TODO: OnRefresh load matches.
     fun loadProMatches() {
         openDotaDataSourceImpl.fetchProMatches()
             .onEach {
@@ -38,4 +35,10 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
             }.launchIn(viewModelScope)
 
     }
+    //TODO: What's the problem with this approach?
+//    openDotaDataSourceImpl.fetchProMatches()
+//    .map {
+//        combineMatches(combineMatchSeries(it as Resource<MutableList<ProMatches>>))
+//    }
+//    .asLiveData()
 }

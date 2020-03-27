@@ -36,7 +36,7 @@
             android:indeterminate="true"
             android:indeterminateTint="@color/colorWhite"
             android:indeterminateTintMode="src_atop"
-            android:visibility="@{viewState.proMatchesVisibility}" />
+            android:visibility="@{viewState.proMatchesProgressBarVisibility}" />
 
     </RelativeLayout>
 </layout>

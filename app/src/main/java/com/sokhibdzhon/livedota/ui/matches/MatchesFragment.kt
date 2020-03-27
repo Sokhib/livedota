@@ -19,9 +19,6 @@ import javax.inject.Inject
 //TODO: ViewState'i alarak degil de Resource'u alarak burda yapmak ne kadar dogru?
 class MatchesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MatchesFragment()
-    }
 
     private lateinit var binding: MatchesFragmentBinding
     private lateinit var viewModel: MatchesViewModel
@@ -42,7 +39,6 @@ class MatchesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.matches_fragment, container, false)
-
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.loadProMatches()
             binding.swipeRefresh.isRefreshing = false

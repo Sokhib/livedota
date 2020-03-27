@@ -2,6 +2,8 @@ package com.sokhibdzhon.livedota.ui.matches
 
 import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.network.model.ProMatches
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 /**     I ❤ Code:)
@@ -17,34 +19,35 @@ fun combineMatches(proMatches: Resource<List<ProMatches>>): MatchesFragmentViewS
 }
 
 //Godlike series combiner
-fun combineMatchSeries(mutableProMatches: Resource<MutableList<ProMatches>>): Resource<MutableList<ProMatches>> {
-    if (mutableProMatches.data == null) {
-        return mutableProMatches
-    } else {
-        for (i in mutableProMatches.data.indices) {
-            if (mutableProMatches.data[i].radiantWin) ++mutableProMatches.data[i].radiantSeriesScore
-            else ++mutableProMatches.data[i].direSeriesScore
-            for (j in i + 1 until mutableProMatches.data.size) {
-                if ((mutableProMatches.data[i].radiantTeamId == mutableProMatches.data[j].radiantTeamId)
-                    && mutableProMatches.data[i].direTeamId == mutableProMatches.data[j].direTeamId
-                ) {
-                    if (mutableProMatches.data[i].radiantWin)
-                        ++mutableProMatches.data[i].radiantSeriesScore
-                    else ++mutableProMatches.data[i].direSeriesScore
+suspend fun combineMatchSeries(mutableProMatches: Resource<MutableList<ProMatches>>): Resource<MutableList<ProMatches>> =
+    withContext(Dispatchers.Main) {
+        if (mutableProMatches.data == null) {
+            mutableProMatches
+        } else {
+            for (i in mutableProMatches.data.indices) {
+                if (mutableProMatches.data[i].radiantWin) ++mutableProMatches.data[i].radiantSeriesScore
+                else ++mutableProMatches.data[i].direSeriesScore
+                for (j in i + 1 until mutableProMatches.data.size) {
+                    if ((mutableProMatches.data[i].radiantTeamId == mutableProMatches.data[j].radiantTeamId)
+                        && mutableProMatches.data[i].direTeamId == mutableProMatches.data[j].direTeamId
+                    ) {
+                        if (mutableProMatches.data[i].radiantWin)
+                            ++mutableProMatches.data[i].radiantSeriesScore
+                        else ++mutableProMatches.data[i].direSeriesScore
 
-                    mutableProMatches.data.removeAt(j)
+                        mutableProMatches.data.removeAt(j)
 
-                } else if ((mutableProMatches.data[i].radiantTeamId == mutableProMatches.data[j].direTeamId)
-                    && (mutableProMatches.data[i].direTeamId == mutableProMatches.data[j].radiantTeamId)
-                ) {
-                    if (mutableProMatches.data[i].radiantWin) ++mutableProMatches.data[i].direSeriesScore
-                    else ++mutableProMatches.data[i].radiantSeriesScore
+                    } else if ((mutableProMatches.data[i].radiantTeamId == mutableProMatches.data[j].direTeamId)
+                        && (mutableProMatches.data[i].direTeamId == mutableProMatches.data[j].radiantTeamId)
+                    ) {
+                        if (mutableProMatches.data[i].radiantWin) ++mutableProMatches.data[i].direSeriesScore
+                        else ++mutableProMatches.data[i].radiantSeriesScore
 
-                    mutableProMatches.data.removeAt(j)
+                        mutableProMatches.data.removeAt(j)
 
+                    }
                 }
             }
+            mutableProMatches
         }
-        return mutableProMatches
     }
-}
