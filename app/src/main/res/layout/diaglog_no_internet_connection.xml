@@ -4,30 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:orientation="vertical"
-    app:cardCornerRadius="16dp">
+    app:cardCornerRadius="8dp"
+    app:cardPreventCornerOverlap="false">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/size_24dp"
         android:background="@drawable/background_round"
         android:orientation="vertical">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:contentDescription="@string/crying_windranger"
-            android:scaleType="fitStart"
+            android:scaleType="fitXY"
             android:src="@drawable/crying_windranger" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/margin_16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="@dimen/size_16dp"
             android:textColor="@color/colorWhite"
-            android:textSize="24sp"
+            android:textSize="20sp"
             tools:text="Please check internet connection" />
 
         <LinearLayout
@@ -40,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_margin="@dimen/margin_16dp"
+                android:layout_margin="@dimen/size_16dp"
                 android:background="@drawable/background_round_white"
 
                 android:text="cancel"
@@ -50,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_margin="@dimen/margin_16dp"
+                android:layout_margin="@dimen/size_16dp"
                 android:background="@drawable/background_round_white"
                 android:text="retry"
                 android:textColor="@color/colorSecondaryDark" />

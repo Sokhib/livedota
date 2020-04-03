@@ -9,14 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
 import javax.inject.Inject
 
 //TODO: Fix recyclerView margin
-//TODO: ViewState'i alarak degil de Resource'u alarak burda yapmak ne kadar dogru?
+//TODO: ViewState'i alarak degil de Resource'u alarak burda yapmak ne kadar dogru Status. check ederek?
+//TODO: Her bir match icin request gondererek ayni anda gelen response'lar icin gostermek gerekirse nasil yapilir?
 class MatchesFragment : Fragment() {
 
 
@@ -45,12 +45,6 @@ class MatchesFragment : Fragment() {
         }
 
         binding.recyclerMatches.adapter = matchesAdapter
-        binding.recyclerMatches.addItemDecoration(
-            DividerItemDecoration(
-                context,
-                DividerItemDecoration.VERTICAL
-            )
-        )
         return binding.root
     }
 
@@ -65,5 +59,8 @@ class MatchesFragment : Fragment() {
             binding.executePendingBindings()
 
         })
+        matchesAdapter.onMatchItemClicked = { matchId ->
+            //TODO: Navigate to Details Page matchId
+        }
     }
 }

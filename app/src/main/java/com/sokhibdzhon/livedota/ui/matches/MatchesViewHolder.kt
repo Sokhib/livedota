@@ -16,8 +16,15 @@ import com.sokhibdzhon.livedota.databinding.MatchItemBinding
  */
 
 class MatchesViewHolder(
-    private val binding: MatchItemBinding
+    private val binding: MatchItemBinding,
+    private val onMatchItemClicked: ((Long) -> Unit)?
 ) : RecyclerView.ViewHolder(binding.root) {
+    init {
+        //TODO: Hangle onMatchItemClick
+//        binding.recyclerItem.setOnClickListener {
+//            onMatchItemClicked?.invoke(binding.viewState!!.getMatchId())
+//        }
+    }
 
     fun bind(proMatch: ProMatches) {
         binding.viewState = MatchesItemViewState(proMatch)
@@ -26,10 +33,11 @@ class MatchesViewHolder(
 
     companion object {
         fun create(
-            parent: ViewGroup
+            parent: ViewGroup,
+            onMatchItemClicked: ((Long) -> Unit)?
         ): MatchesViewHolder {
             val binding = MatchItemBinding.inflate(LayoutInflater.from(parent.context))
-            return MatchesViewHolder(binding)
+            return MatchesViewHolder(binding, onMatchItemClicked)
         }
     }
 

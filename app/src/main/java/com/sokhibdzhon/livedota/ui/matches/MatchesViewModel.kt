@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
+//TODO:What should be viewModel responsible for ?
 class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaDataSourceImpl) :
     ViewModel() {
     private val _proMatchesLiveData: MutableLiveData<MatchesFragmentViewState> = MutableLiveData()
@@ -27,7 +28,7 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
 //    val data: LiveData<Resource<List<ProMatches>>>
 //        get() = _data
 
-
+    //TODO: Where to do map. it didin't work here:)
     fun loadProMatches() {
         openDotaDataSourceImpl.fetchProMatches()
             .onEach {

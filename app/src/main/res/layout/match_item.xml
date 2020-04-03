@@ -10,160 +10,148 @@
             type="com.sokhibdzhon.livedota.ui.matches.MatchesItemViewState" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_16dp"
+        android:layout_margin="@dimen/size_16dp"
         android:background="@drawable/background_round"
-        android:minHeight="0dp"
         android:orientation="vertical"
-        android:paddingStart="@dimen/padding_8dp"
-        android:paddingEnd="@dimen/padding_8dp"
-        android:paddingBottom="@dimen/padding_16dp">
-
-        <ImageView
-            android:id="@+id/tournament_logo"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:contentDescription="@string/tournament_logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/dota_2_icon" />
-
-        <TextView
-            android:id="@+id/tournament_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_8dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="@{viewState.leagueName}"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/tournament_logo"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="The International" />
-
-        <TextView
-            android:id="@+id/tournament_start_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="@{viewState.duration}"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tournament_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:text="25 mins" />
-
-        <ImageView
-            android:id="@+id/radiant_team_logo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:contentDescription="@string/radiant_team_logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tournament_name"
-            app:srcCompat="@drawable/teams_logo_1" />
-
-        <TextView
-            android:id="@+id/radiant_team_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_8dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:text="@{String.valueOf(viewState.radiantScore)}"
-            android:textColor="@color/colorWhite"
-            android:textSize="48sp"
-            app:layout_constraintStart_toEndOf="@+id/radiant_team_logo"
-            app:layout_constraintTop_toTopOf="@+id/radiant_team_logo"
-            tools:text="1" />
-
-        <TextView
-            android:id="@+id/divider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_8dp"
-            android:layout_marginEnd="@dimen/margin_8dp"
-            android:text=":"
-            android:textColor="@color/colorWhite"
-            android:textSize="48sp"
-            app:layout_constraintEnd_toStartOf="@+id/dire_team_score"
-            app:layout_constraintStart_toEndOf="@+id/radiant_team_score"
-            app:layout_constraintTop_toTopOf="@+id/radiant_team_score"
-            tools:text=":" />
-
-        <TextView
-            android:id="@+id/dire_team_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:layout_marginEnd="@dimen/margin_8dp"
-            android:text="@{String.valueOf(viewState.direScore)}"
-            android:textColor="@color/colorWhite"
-            android:textSize="48sp"
-            app:layout_constraintEnd_toStartOf="@+id/dire_team_logo"
-            app:layout_constraintTop_toTopOf="@+id/dire_team_logo"
-            tools:text="2" />
-
-        <ImageView
-            android:id="@+id/dire_team_logo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:contentDescription="@string/dire_team_logo"
-            app:layout_constraintBottom_toBottomOf="@+id/radiant_team_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tournament_start_time"
-            app:srcCompat="@drawable/teams_logo_2" />
+        android:paddingVertical="@dimen/size_16dp"
+        android:weightSum="2">
 
 
-        <TextView
-            android:id="@+id/radiant_team_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:layout_marginBottom="@dimen/margin_16dp"
-            android:fontFamily="sans-serif"
-            android:text="@{viewState.radiantName}"
-            android:textAllCaps="true"
-            android:textColor="@color/colorWhite"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radiant_team_logo"
-            tools:text="Natus Vincere" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:padding="@dimen/size_4dp">
 
-        <TextView
-            android:id="@+id/dire_team_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_8dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:layout_marginBottom="@dimen/margin_16dp"
-            android:fontFamily="sans-serif"
-            android:text="@{viewState.direName}"
-            android:textAllCaps="true"
-            android:textColor="@color/colorWhite"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dire_team_logo"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="Evil Geniuses" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/tournament_logo"
+                android:layout_width="@dimen/size_24dp"
+                android:layout_height="@dimen/size_24dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/size_16dp"
+                android:contentDescription="@string/tournament_logo"
+                app:srcCompat="@drawable/dota_2_icon" />
+
+            <TextView
+                android:id="@+id/tournament_name"
+                android:layout_width="168dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/size_16dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@{viewState.leagueName}"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/tournament_logo"
+                app:layout_constraintTop_toTopOf="@+id/tournament_logo"
+                tools:text="The International" />
+
+            <TextView
+                android:id="@+id/tournament_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginStart="@dimen/size_24dp"
+                android:layout_marginEnd="@dimen/size_16dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@{viewState.duration}"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                tools:text="25'" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:padding="@dimen/size_4dp">
+
+            <TextView
+                android:id="@+id/radiant_team_name"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/size_16dp"
+                android:fontFamily="sans-serif"
+                android:gravity="start"
+                android:text="@{viewState.radiantName}"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tournament_name"
+                tools:text="Natus Vincere" />
+
+            <TextView
+                android:id="@+id/radiant_team_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@{String.valueOf(viewState.radiantScore)}"
+                android:textColor="@color/colorWhite"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/radiant_team_name"
+                app:layout_constraintStart_toEndOf="@+id/radiant_team_name"
+                app:layout_constraintTop_toTopOf="@+id/radiant_team_name"
+                app:layout_constraintVertical_bias="0.454"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="-"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/radiant_team_score"
+                app:layout_constraintEnd_toStartOf="@+id/dire_team_score"
+                app:layout_constraintHorizontal_bias="0.076"
+                app:layout_constraintStart_toEndOf="@+id/radiant_team_score"
+                app:layout_constraintTop_toTopOf="@+id/radiant_team_score"
+                app:layout_constraintVertical_bias="0.363"
+                tools:text="-" />
+
+            <TextView
+                android:id="@+id/dire_team_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@{String.valueOf(viewState.direScore)}"
+                android:textColor="@color/colorWhite"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dire_team_name"
+                app:layout_constraintEnd_toStartOf="@+id/dire_team_name"
+                app:layout_constraintTop_toTopOf="@+id/dire_team_name"
+                app:layout_constraintVertical_bias="0.363"
+                tools:text="2" />
+
+            <TextView
+                android:id="@+id/dire_team_name"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="@dimen/size_16dp"
+                android:fontFamily="sans-serif"
+                android:gravity="end"
+                android:text="@{viewState.direName}"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tournament_name"
+                tools:text="Evil Geniuses" />
+
+        </LinearLayout>
+    </LinearLayout>
 </layout>

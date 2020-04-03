@@ -17,7 +17,7 @@ import javax.inject.Inject
 class MatchesAdapter @Inject constructor() : RecyclerView.Adapter<MatchesViewHolder>() {
 
     private val matchesList = arrayListOf<ProMatches>()
-
+    var onMatchItemClicked: ((Long) -> Unit)? = null
     fun setMatchList(matchesList: List<ProMatches>) {
         this.matchesList.apply {
             clear()
@@ -28,7 +28,7 @@ class MatchesAdapter @Inject constructor() : RecyclerView.Adapter<MatchesViewHol
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        MatchesViewHolder.create(parent)
+        MatchesViewHolder.create(parent, onMatchItemClicked)
 
     override fun getItemCount() = matchesList.size
 
