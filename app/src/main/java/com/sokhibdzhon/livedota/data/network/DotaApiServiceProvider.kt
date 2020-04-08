@@ -9,7 +9,7 @@ class DotaApiServiceProvider @Inject constructor(retrofit: Retrofit) {
 //    @Inject
 //    lateinit var retrofit:Retrofit
 
-    val openDotaApiService: OpenDotaApiService = retrofit.create(OpenDotaApiService::class.java)
+    val openDotaApiService: OpenDotaApiService by lazy { retrofit.create(OpenDotaApiService::class.java) }
 
 }
 
