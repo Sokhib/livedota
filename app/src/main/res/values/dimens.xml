@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="h_bottom_nav">56dp</dimen>
-    <dimen name="margin_16dp">16dp</dimen>
-    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="size_4dp">4dp</dimen>
+    <dimen name="size_8dp">8dp</dimen>
+    <dimen name="size_12dp">12dp</dimen>
+    <dimen name="size_16dp">16dp</dimen>
+    <dimen name="size_24dp">24dp</dimen>
+    <dimen name="text_size_24sp">24sp</dimen>
 </resources>
