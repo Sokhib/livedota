@@ -9,12 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
 import javax.inject.Inject
 
-//TODO: Fix recyclerView margin
+//TODO: Fix recyclerView margin + wrap content ile nasil duzgun hale getirilir(weight??)?
 //TODO: ViewState'i alarak degil de Resource'u alarak burda yapmak ne kadar dogru Status. check ederek?
 //TODO: Her bir match icin request gondererek ayni anda gelen response'lar icin gostermek gerekirse nasil yapilir?
 class MatchesFragment : Fragment() {
@@ -61,6 +62,13 @@ class MatchesFragment : Fragment() {
         })
         matchesAdapter.onMatchItemClicked = { matchId ->
             //TODO: Navigate to Details Page matchId
+            // navigateToMatchDetails(matchId)
         }
+    }
+
+    private fun navigateToMatchDetails(matchId: Long) {
+        val direction =
+            MatchesFragmentDirections.actionMatchesFragmentToMatchDetailsFragment(matchId)
+        this.findNavController().navigate(direction)
     }
 }

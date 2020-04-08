@@ -11,6 +11,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/linear_match_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/size_16dp"
@@ -20,9 +21,9 @@
         android:weightSum="2">
 
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="84dp"
             android:layout_weight="1"
             android:padding="@dimen/size_4dp">
 
@@ -33,6 +34,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/size_16dp"
                 android:contentDescription="@string/tournament_logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/dota_2_icon" />
 
             <TextView
@@ -47,7 +50,7 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/tournament_logo"
                 app:layout_constraintTop_toTopOf="@+id/tournament_logo"
-                tools:text="The International" />
+                tools:text="The InternationalThe InternationalThe International" />
 
             <TextView
                 android:id="@+id/tournament_start_time"
@@ -60,12 +63,14 @@
                 android:text="@{viewState.duration}"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="25'" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="84dp"
             android:layout_weight="1"
             android:padding="@dimen/size_4dp">
 
@@ -80,14 +85,13 @@
                 android:text="@{viewState.radiantName}"
                 android:textAllCaps="true"
                 android:textColor="@color/colorWhite"
-                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tournament_name"
-                tools:text="Natus Vincere" />
+                tools:text="Natus VincereNatus VincereNatus Vincere" />
 
             <TextView
                 android:id="@+id/radiant_team_score"
-                android:layout_width="wrap_content"
+                android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="12dp"
@@ -99,7 +103,7 @@
                 app:layout_constraintStart_toEndOf="@+id/radiant_team_name"
                 app:layout_constraintTop_toTopOf="@+id/radiant_team_name"
                 app:layout_constraintVertical_bias="0.454"
-                tools:text="1" />
+                tools:text="23" />
 
             <TextView
                 android:id="@+id/divider"
@@ -121,7 +125,7 @@
 
             <TextView
                 android:id="@+id/dire_team_score"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/size_24dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/size_8dp"
@@ -134,7 +138,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/dire_team_name"
                 app:layout_constraintTop_toTopOf="@+id/dire_team_name"
                 app:layout_constraintVertical_bias="0.363"
-                tools:text="2" />
+                tools:text="23" />
 
             <TextView
                 android:id="@+id/dire_team_name"
@@ -143,14 +147,13 @@
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginEnd="@dimen/size_16dp"
                 android:fontFamily="sans-serif"
-                android:gravity="end"
+                android:gravity="start"
                 android:text="@{viewState.direName}"
                 android:textAllCaps="true"
                 android:textColor="@color/colorWhite"
-                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tournament_name"
-                tools:text="Evil Geniuses" />
+                tools:text="Evil Geniuses Evil Evil Geniuses Evil Geniuses " />
 
         </LinearLayout>
     </LinearLayout>

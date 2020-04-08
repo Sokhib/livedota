@@ -9,7 +9,13 @@
         android:id="@+id/matchesFragment"
         android:name="com.sokhibdzhon.livedota.ui.matches.MatchesFragment"
         android:label="matches_fragment"
-        tools:layout="@layout/matches_fragment" />
+        tools:layout="@layout/matches_fragment">
+        <action
+            android:id="@+id/action_matchesFragment_to_matchDetailsFragment"
+            app:destination="@id/matchDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.sokhibdzhon.livedota.ui.favorites.FavoritesFragment"
@@ -20,4 +26,14 @@
         android:name="com.sokhibdzhon.livedota.ui.search.SearchFragment"
         android:label="search_fragment"
         tools:layout="@layout/search_fragment" />
+    <fragment
+        android:id="@+id/matchDetailsFragment"
+        android:name="com.sokhibdzhon.livedota.ui.match_details.MatchDetailsFragment"
+        android:label="MatchDetailsFragment"
+        tools:layout="@layout/match_details_fragment">
+        <argument
+            android:name="matchId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
 </navigation>
