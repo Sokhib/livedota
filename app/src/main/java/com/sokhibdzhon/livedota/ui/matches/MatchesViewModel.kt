@@ -22,13 +22,9 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
         get() = _proMatchesLiveData
 
     //    TODO: Other way to get it which is better ?
-//    private val _data =
+//    private val data =
 //        openDotaDataSourceImpl.fetchProMatches().asLiveData(viewModelScope.coroutineContext)
-//
-//    val data: LiveData<Resource<List<ProMatches>>>
-//        get() = _data
 
-    //TODO: Where to do map. it didin't work here:)
     fun loadProMatches() {
         openDotaDataSourceImpl.fetchProMatches()
             .onEach {
@@ -36,10 +32,4 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
             }.launchIn(viewModelScope)
 
     }
-    //TODO: What's the problem with this approach?
-//    openDotaDataSourceImpl.fetchProMatches()
-//    .map {
-//        combineMatches(combineMatchSeries(it as Resource<MutableList<ProMatches>>))
-//    }
-//    .asLiveData()
 }
