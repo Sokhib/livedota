@@ -1,9 +1,9 @@
-package com.sokhibdzhon.livedota.data.network.model
+package com.sokhibdzhon.livedota.data.network.model.matchdetails
 
 
 import com.google.gson.annotations.SerializedName
 
-data class DireTeam(
+data class RadiantTeam(
     @SerializedName("logo_url")
     val logoUrl: String,
     val name: String,

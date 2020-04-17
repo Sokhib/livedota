@@ -1,4 +1,4 @@
-package com.sokhibdzhon.livedota.data.network.model
+package com.sokhibdzhon.livedota.data.network.model.matchdetails
 
 
 data class League(

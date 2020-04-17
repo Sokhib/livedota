@@ -20,9 +20,9 @@ class MatchesViewHolder(
     private val onMatchItemClicked: ((Long) -> Unit)?
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
-//        binding.linearMatchItem.setOnClickListener {
-//            onMatchItemClicked?.invoke(binding.viewState!!.getMatchId())
-//        }
+        binding.linearMatchItem.setOnClickListener {
+            onMatchItemClicked?.invoke(binding.viewState!!.getMatchId())
+        }
     }
 
     fun bind(proMatch: ProMatches) {

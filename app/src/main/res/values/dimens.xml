@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="h_bottom_nav">56dp</dimen>
+    <dimen name="size_2dp">2dp</dimen>
     <dimen name="size_4dp">4dp</dimen>
     <dimen name="size_8dp">8dp</dimen>
     <dimen name="size_12dp">12dp</dimen>

@@ -14,7 +14,7 @@ import com.sokhibdzhon.livedota.data.local.entity.ProMatches
  */
 
 
-@Database(entities = [ProMatches::class], version = 1)
+@Database(entities = [ProMatches::class], version = 1, exportSchema = false)
 
 abstract class DotaDatabase : RoomDatabase() {
     abstract fun getDotaDao(): DotaDao

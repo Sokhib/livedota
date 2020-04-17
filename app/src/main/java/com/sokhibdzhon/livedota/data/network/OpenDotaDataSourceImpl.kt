@@ -1,10 +1,11 @@
 package com.sokhibdzhon.livedota.data.network
 
 import com.sokhibdzhon.livedota.data.Resource
-import com.sokhibdzhon.livedota.data.network.model.MatchDetails
 import com.sokhibdzhon.livedota.data.network.model.ProMatches
+import com.sokhibdzhon.livedota.data.network.model.matchdetails.MatchDetails
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -27,6 +28,7 @@ class OpenDotaDataSourceImpl @Inject constructor(val openDotaApiServiceProvider:
             val proMatches = openDotaApiServiceProvider.openDotaApiService.getProMatches()
             emit(Resource.success(proMatches))
         } catch (exception: Exception) {
+            Timber.d("$exception")
             emit(Resource.error<List<ProMatches>>(exception.message ?: "Error loading Pro Matches"))
         }
 
@@ -40,7 +42,8 @@ class OpenDotaDataSourceImpl @Inject constructor(val openDotaApiServiceProvider:
             emit(Resource.success(matchDetails))
 
         } catch (exception: Exception) {
-            emit(Resource.error<MatchDetails>(exception.message ?: "Error loading Pro Matches"))
+            Timber.d("$exception")
+            emit(Resource.error<MatchDetails>(exception.message ?: "Error loading Match Details"))
         }
     }
 }

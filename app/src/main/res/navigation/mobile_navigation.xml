@@ -28,7 +28,7 @@
         tools:layout="@layout/search_fragment" />
     <fragment
         android:id="@+id/matchDetailsFragment"
-        android:name="com.sokhibdzhon.livedota.ui.match_details.MatchDetailsFragment"
+        android:name="com.sokhibdzhon.livedota.ui.matchdetails.MatchDetailsFragment"
         android:label="MatchDetailsFragment"
         tools:layout="@layout/match_details_fragment">
         <argument

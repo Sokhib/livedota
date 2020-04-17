@@ -1,8 +1,8 @@
 package com.sokhibdzhon.livedota.data.network
 
 import com.sokhibdzhon.livedota.data.Resource
-import com.sokhibdzhon.livedota.data.network.model.MatchDetails
 import com.sokhibdzhon.livedota.data.network.model.ProMatches
+import com.sokhibdzhon.livedota.data.network.model.matchdetails.MatchDetails
 import kotlinx.coroutines.flow.Flow
 
 

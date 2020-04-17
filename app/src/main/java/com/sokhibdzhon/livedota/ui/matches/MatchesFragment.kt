@@ -13,11 +13,13 @@ import androidx.navigation.fragment.findNavController
 import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
+import timber.log.Timber
 import javax.inject.Inject
 
 //TODO: Fix recyclerView margin + wrap content ile nasil duzgun hale getirilir(weight??)?
 //TODO: ViewState'i alarak degil de Resource'u alarak burda yapmak ne kadar dogru Status. check ederek?
 //TODO: Her bir match icin request gondererek ayni anda gelen response'lar icin gostermek gerekirse nasil yapilir?
+//TODO: Check if theme or style overrides any other in views
 class MatchesFragment : Fragment() {
 
 
@@ -40,6 +42,7 @@ class MatchesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.matches_fragment, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.loadProMatches()
             binding.swipeRefresh.isRefreshing = false
@@ -61,14 +64,14 @@ class MatchesFragment : Fragment() {
 
         })
         matchesAdapter.onMatchItemClicked = { matchId ->
-            //TODO: Navigate to Details Page matchId
-            // navigateToMatchDetails(matchId)
+            navigateToMatchDetails(matchId)
         }
     }
 
     private fun navigateToMatchDetails(matchId: Long) {
         val direction =
             MatchesFragmentDirections.actionMatchesFragmentToMatchDetailsFragment(matchId)
+        Timber.d("$matchId")
         this.findNavController().navigate(direction)
     }
 }
