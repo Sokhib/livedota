@@ -17,7 +17,6 @@ import com.sokhibdzhon.livedota.databinding.MatchDetailsFragmentBinding
 import timber.log.Timber
 import javax.inject.Inject
 
-//TODO: Bu fragment'te MatchesFragment'ten degisik olarak viewState degil Resource ile manage edildi...
 
 class MatchDetailsFragment : Fragment() {
 
@@ -59,17 +58,14 @@ class MatchDetailsFragment : Fragment() {
         viewModel.loadMatchDetails(matchId)
 
         viewModel.matchDetailsLiveData.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
+            when (it.matchDetailsResource!!.status) {
                 Status.SUCCESS -> {
                     Timber.d("SUCCESS...")
-                    Timber.d(it.data!!.league.name)
+                    binding.viewState = it
                 }
                 Status.ERROR -> {
                     //TODO: Show error dialog.
                     Timber.d("ERROR...")
-                }
-                Status.LOADING -> {
-                    Timber.d("LOADING...")
                 }
             }
         })

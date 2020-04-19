@@ -30,6 +30,5 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
             .onEach {
                 _proMatchesLiveData.value = combineMatches(it)
             }.launchIn(viewModelScope)
-
     }
 }
