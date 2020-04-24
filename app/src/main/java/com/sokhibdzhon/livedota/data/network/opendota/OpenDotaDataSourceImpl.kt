@@ -1,8 +1,7 @@
-package com.sokhibdzhon.livedota.data.network
+package com.sokhibdzhon.livedota.data.network.opendota
 
 import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.network.model.ProMatches
-import com.sokhibdzhon.livedota.data.network.model.matchdetails.MatchDetails
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -17,15 +16,14 @@ import javax.inject.Inject
 ╚═══════════════════════════════════════╝
  */
 
-//TODO: Implementation yaratma sebebi farkli API'lerden farkli proMatches'leri almak
 
-class OpenDotaDataSourceImpl @Inject constructor(val openDotaApiServiceProvider: DotaApiServiceProvider) :
-    DotaDataSource {
+class OpenDotaDataSourceImpl @Inject constructor(val openDotaApiService: OpenDotaApiService) :
+    OpenDotaDataSource {
     //TODO: try map, filter, drop, combine, flowOn, onCompletion here before emitting
     override fun fetchProMatches(): Flow<Resource<List<ProMatches>>> = flow {
         emit(Resource.loading())
         try {
-            val proMatches = openDotaApiServiceProvider.openDotaApiService.getProMatches()
+            val proMatches = openDotaApiService.getProMatches()
             emit(Resource.success(proMatches))
         } catch (exception: Exception) {
             Timber.d("$exception")
@@ -34,16 +32,4 @@ class OpenDotaDataSourceImpl @Inject constructor(val openDotaApiServiceProvider:
 
     }
 
-    override fun fetchMatchDetails(matchId: Long): Flow<Resource<MatchDetails>> = flow {
-        emit(Resource.loading())
-        try {
-            val matchDetails =
-                openDotaApiServiceProvider.openDotaApiService.getMatchDetailsByMatchId(matchId)
-            emit(Resource.success(matchDetails))
-
-        } catch (exception: Exception) {
-            Timber.d("$exception")
-            emit(Resource.error<MatchDetails>(exception.message ?: "Error loading Match Details"))
-        }
-    }
 }

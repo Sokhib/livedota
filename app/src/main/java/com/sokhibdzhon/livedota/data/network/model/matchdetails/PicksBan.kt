@@ -8,9 +8,6 @@ data class PicksBan(
     val heroId: Int,
     @SerializedName("is_pick")
     val isPick: Boolean,
-    @SerializedName("match_id")
-    val matchId: Long,
-    val ord: Int,
     val order: Int,
     val team: Int
 )

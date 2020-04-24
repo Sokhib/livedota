@@ -27,12 +27,14 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "SERVER_URL", "\"https://api.opendota.com/api/\""
+            buildConfigField "String", "STEAM_URL", "\"https://api.steampowered.com/IDOTA2Match_570/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
             buildConfigField "String", "SERVER_URL", "\"https://api.opendota.com/api/\""
+            buildConfigField "String", "STEAM_URL", "\"https://api.steampowered.com/IDOTA2Match_570/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

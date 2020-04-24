@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokhibdzhon.livedota.data.network.OpenDotaDataSourceImpl
+import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject

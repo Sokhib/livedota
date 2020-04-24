@@ -4,7 +4,8 @@ import androidx.annotation.NonNull
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.sokhibdzhon.livedota.BuildConfig
-import com.sokhibdzhon.livedota.data.network.OpenDotaApiService
+import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaApiService
+import com.sokhibdzhon.livedota.data.network.steam.SteamApiService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -25,13 +26,25 @@ class NetworkModule {
     @Singleton
     @Provides
     @NonNull
-    fun provideRetrofit(): Retrofit = Retrofit.Builder()
-        .addConverterFactory(provideGsonConvertorFactory())
-        .baseUrl(provideOpenDotaServerUrl())
-        .build()
+    fun provideRetrofit(): Retrofit.Builder = Retrofit.Builder()
 
-    fun provideOpenDotaApiService(retrofit: Retrofit): OpenDotaApiService =
-        retrofit.create(OpenDotaApiService::class.java)
+    @Singleton
+    @Provides
+    @NonNull
+    fun provideOpenDotaApiService(retrofitBuilder: Retrofit.Builder): OpenDotaApiService =
+        retrofitBuilder.addConverterFactory(provideGsonConvertorFactory())
+            .baseUrl(provideOpenDotaServerUrl())
+            .build()
+            .create(OpenDotaApiService::class.java)
+
+    @Singleton
+    @Provides
+    @NonNull
+    fun provideSteamApiService(retrofitBuilder: Retrofit.Builder): SteamApiService =
+        retrofitBuilder.addConverterFactory(provideGsonConvertorFactory())
+            .baseUrl(provideSteamServerUrl())
+            .build()
+            .create(SteamApiService::class.java)
 
     private fun provideGsonConvertorFactory(): GsonConverterFactory =
         GsonConverterFactory.create(provideGson())
@@ -39,4 +52,5 @@ class NetworkModule {
     private fun provideGson(): Gson = GsonBuilder().create()
 
     private fun provideOpenDotaServerUrl() = BuildConfig.SERVER_URL
+    private fun provideSteamServerUrl() = BuildConfig.STEAM_URL
 }

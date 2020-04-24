@@ -56,9 +56,9 @@ class MatchDetailsFragment : Fragment() {
             matchDetailsViewModelFactory
         ).get(MatchDetailsViewModel::class.java)
         viewModel.loadMatchDetails(matchId)
-
+        //TODO: Configure ViewState from ViewModel as prev fragment
         viewModel.matchDetailsLiveData.observe(viewLifecycleOwner, Observer {
-            when (it.matchDetailsResource!!.status) {
+            when (it.matchDetailsResource.status) {
                 Status.SUCCESS -> {
                     Timber.d("SUCCESS...")
                     binding.viewState = it
@@ -66,6 +66,7 @@ class MatchDetailsFragment : Fragment() {
                 Status.ERROR -> {
                     //TODO: Show error dialog.
                     Timber.d("ERROR...")
+                    binding.viewState = it
                 }
             }
         })
