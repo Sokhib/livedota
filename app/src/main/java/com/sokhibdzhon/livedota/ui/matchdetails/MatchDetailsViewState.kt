@@ -5,6 +5,7 @@ import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.MatchDetails
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.PicksBan
+import timber.log.Timber
 
 
 /**     I ❤ Code:)
@@ -28,6 +29,9 @@ data class MatchDetailsViewState(val matchDetailsResource: Resource<MatchDetails
             } else {
                 if (it.isPick) direPicks.add(it) else direBans.add(it)
             }
+            Timber.d(
+                it.heroName
+            )
         }
     }
 
@@ -54,10 +58,10 @@ data class MatchDetailsViewState(val matchDetailsResource: Resource<MatchDetails
     fun getPlayer(playerPosition: Int): String =
         matchDetailsResource.data?.result?.players?.get(playerPosition - 1)?.accountId.toString()
 
-    fun getRadiantPick(position: Int): Int = radiantPicks[position - 1].heroId
-    fun getDirePick(position: Int): Int = direPicks[position - 1].heroId
-    fun getRadiantBan(position: Int): Int = radiantBans[position - 1].heroId
-    fun getDireBan(position: Int): Int = direBans[position - 1].heroId
+    fun getRadiantPick(position: Int): String = radiantPicks[position - 1].heroName
+    fun getDirePick(position: Int): String = direPicks[position - 1].heroName
+    fun getRadiantBan(position: Int): String = radiantBans[position - 1].heroName
+    fun getDireBan(position: Int): String = direBans[position - 1].heroName
 
 }
 

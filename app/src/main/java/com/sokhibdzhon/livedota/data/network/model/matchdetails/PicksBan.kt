@@ -9,5 +9,6 @@ data class PicksBan(
     @SerializedName("is_pick")
     val isPick: Boolean,
     val order: Int,
-    val team: Int
+    val team: Int,
+    var heroName: String = ""
 )

@@ -14,6 +14,7 @@ import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.databinding.MatchDetailsFragmentBinding
+import kotlinx.coroutines.InternalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -49,6 +50,7 @@ class MatchDetailsFragment : Fragment() {
         matchId = args.matchId
     }
 
+    @InternalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(

@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
-import timber.log.Timber
 import javax.inject.Inject
 
 //TODO: Fix recyclerView margin + wrap content ile nasil duzgun hale getirilir(weight??)?
@@ -71,7 +70,6 @@ class MatchesFragment : Fragment() {
     private fun navigateToMatchDetails(matchId: Long) {
         val direction =
             MatchesFragmentDirections.actionMatchesFragmentToMatchDetailsFragment(matchId)
-        Timber.d("$matchId")
         this.findNavController().navigate(direction)
     }
 }
