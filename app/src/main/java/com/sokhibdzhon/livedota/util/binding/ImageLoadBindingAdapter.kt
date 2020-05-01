@@ -1,9 +1,9 @@
-package com.sokhibdzhon.livedota.data.network.steam
+package com.sokhibdzhon.livedota.util.binding
 
-import com.sokhibdzhon.livedota.data.Resource
-import com.sokhibdzhon.livedota.data.network.model.matchdetails.MatchDetails
-import com.sokhibdzhon.livedota.data.network.model.teamitem.TeamLogo
-import kotlinx.coroutines.flow.Flow
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.sokhibdzhon.livedota.R
 
 
 /**     I ❤ Code:)
@@ -14,7 +14,14 @@ import kotlinx.coroutines.flow.Flow
 ╚═══════════════════════════════════════╝
  */
 
-interface SteamDataSource {
-    fun fetchMatchDetails(matchId: Long): Flow<Resource<MatchDetails>>
-    fun fetchTeamLogo(ugcId: Long): Flow<Resource<TeamLogo>>
+@BindingAdapter("url")
+fun loadImage(imageView: ImageView, url: String?) {
+    if (url.isNullOrEmpty()) {
+        return
+    }
+    Glide.with(imageView.context)
+        .load(url)
+        .centerInside()
+        .placeholder(R.drawable.dota_2_icon)
+        .into(imageView)
 }

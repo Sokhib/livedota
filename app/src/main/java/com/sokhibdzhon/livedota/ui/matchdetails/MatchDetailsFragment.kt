@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -58,20 +59,56 @@ class MatchDetailsFragment : Fragment() {
             matchDetailsViewModelFactory
         ).get(MatchDetailsViewModel::class.java)
         viewModel.loadMatchDetails(matchId)
-        //TODO: Configure ViewState from ViewModel as prev fragment
         viewModel.matchDetailsLiveData.observe(viewLifecycleOwner, Observer {
             when (it.matchDetailsResource.status) {
                 Status.SUCCESS -> {
-                    Timber.d("SUCCESS...")
                     binding.viewState = it
                 }
                 Status.ERROR -> {
                     //TODO: Show error dialog.
                     Timber.d("ERROR...")
-                    binding.viewState = it
+                    Toast.makeText(activity, "Error fetching match details", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         })
+
+        viewModel.radiantTeamLogoId.observe(viewLifecycleOwner, Observer {
+            if (it != null)
+                viewModel.getTeamLogo(it, "radiant")
+        })
+        viewModel.direTeamLogoId.observe(viewLifecycleOwner, Observer {
+            if (it != null)
+                viewModel.getTeamLogo(it, "dire")
+        })
+
+        viewModel.radiantTeamLogo.observe(viewLifecycleOwner, Observer {
+            when (it.teamLogo.status) {
+                Status.SUCCESS -> {
+                    binding.radiantState = it
+                }
+                Status.ERROR -> {
+                    //TODO: Show error dialog.
+                    Timber.d("ERROR...")
+                    Toast.makeText(activity, "No Radiant Logo", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+        viewModel.direTeamLogo.observe(viewLifecycleOwner, Observer {
+            when (it.teamLogo.status) {
+                Status.SUCCESS -> {
+                    binding.direState = it
+                }
+                Status.ERROR -> {
+                    //TODO: Show error dialog.
+                    Timber.d("ERROR...")
+                    Toast.makeText(activity, "No Dire Logo", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+
     }
 
 }

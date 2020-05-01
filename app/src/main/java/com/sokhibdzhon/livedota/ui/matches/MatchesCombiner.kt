@@ -13,14 +13,10 @@ import kotlinx.coroutines.withContext
 ║ sokhibsaid@gmail.com                  ║
 ╚═══════════════════════════════════════╝
  */
-//TODO: Later check team names and combine same games AND ALSO get team logo ??
-fun combineMatches(proMatches: Resource<List<ProMatches>>): MatchesFragmentViewState {
-    return MatchesFragmentViewState(proMatches)
-}
 
 //Godlike series combiner
 suspend fun combineMatchSeries(mutableProMatches: Resource<MutableList<ProMatches>>): Resource<MutableList<ProMatches>> =
-    withContext(Dispatchers.Main) {
+    withContext(Dispatchers.Default) {
         if (mutableProMatches.data == null) {
             mutableProMatches
         } else {

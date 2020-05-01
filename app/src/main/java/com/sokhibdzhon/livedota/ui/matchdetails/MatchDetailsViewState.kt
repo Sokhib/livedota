@@ -5,7 +5,6 @@ import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.MatchDetails
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.PicksBan
-import timber.log.Timber
 
 
 /**     I ❤ Code:)
@@ -29,9 +28,6 @@ data class MatchDetailsViewState(val matchDetailsResource: Resource<MatchDetails
             } else {
                 if (it.isPick) direPicks.add(it) else direBans.add(it)
             }
-            Timber.d(
-                it.heroName
-            )
         }
     }
 
@@ -42,7 +38,6 @@ data class MatchDetailsViewState(val matchDetailsResource: Resource<MatchDetails
             else -> View.GONE
         }
     }
-
     fun getLeagueName(): String =
         matchDetailsResource.data?.result?.leagueid.toString()
 

@@ -11,4 +11,5 @@
     <string name="dire_team_logo">Dire Team Logo</string>
     <string name="crying_windranger">crying windranger</string>
     <string name="recent_matches">Recent Matches</string>
+    <string name="time">"%1$s''"</string>
 </resources>

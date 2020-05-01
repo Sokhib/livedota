@@ -25,10 +25,11 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
 //    private val data =
 //        openDotaDataSourceImpl.fetchProMatches().asLiveData(viewModelScope.coroutineContext)
 
+    //TODO:Check combineMatchSeries
     fun loadProMatches() {
         openDotaDataSourceImpl.fetchProMatches()
             .onEach {
-                _proMatchesLiveData.value = combineMatches(it)
+                _proMatchesLiveData.value = MatchesFragmentViewState(it)
             }.launchIn(viewModelScope)
     }
 }

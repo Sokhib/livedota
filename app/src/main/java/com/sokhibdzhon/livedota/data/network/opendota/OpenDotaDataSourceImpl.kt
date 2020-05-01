@@ -1,8 +1,8 @@
 package com.sokhibdzhon.livedota.data.network.opendota
 
 import com.sokhibdzhon.livedota.data.Resource
-import com.sokhibdzhon.livedota.data.network.model.Heroes
 import com.sokhibdzhon.livedota.data.network.model.ProMatches
+import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -32,6 +32,10 @@ class OpenDotaDataSourceImpl @Inject constructor(val openDotaApiService: OpenDot
         }
 
     }
+//    do series score combiner here :)
+//        .map {
+//        it
+//    }.flowOn(Dispatchers.Default)
 
     override fun fetchHeroes(): Flow<Resource<Heroes>> = flow {
         Timber.d("Fetching Heroes...")

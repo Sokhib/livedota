@@ -11,13 +11,13 @@ import com.sokhibdzhon.livedota.util.AppUtil
 ║ sokhibsaid@gmail.com                  ║
 ╚═══════════════════════════════════════╝
  */
-//TODO: AppUtil'i boyle kullanmak dogru mu ya da @BindingAdapter ile degsitirilmeli mi?
+
 data class MatchesItemViewState(val match: ProMatches) {
     fun getMatchId(): Long = match.matchId
     fun getDireName(): String = match.direName
     fun getDireScore(): Int = match.direScore
     fun getDireSeriesScore(): Int = match.direSeriesScore
-    fun getDuration(): String = "${AppUtil.secondsToMinutes(match.duration).toInt()}'"
+    fun getDuration(): String = "${AppUtil.secondsToMinutes(match.duration).toInt()}"
     fun getLeagueName(): String = match.leagueName
     fun getRadiantName(): String = match.radiantName
     fun getRadiantScore(): Int = match.radiantScore
