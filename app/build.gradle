@@ -71,6 +71,7 @@ dependencies {
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.0.1"
 
     //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"

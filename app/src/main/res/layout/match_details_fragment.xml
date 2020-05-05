@@ -36,7 +36,6 @@
                 android:layout_marginHorizontal="@dimen/size_16dp"
                 android:layout_marginVertical="@dimen/size_16dp"
                 android:fontFamily="sans-serif-condensed-light"
-                android:text="@{viewState.leagueName}"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_size_24sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -153,10 +152,10 @@
                 android:layout_height="96dp"
                 android:layout_marginTop="@dimen/size_16dp"
                 android:layout_marginEnd="@dimen/size_24dp"
+                android:contentDescription="@string/dire_team_logo"
                 android:src="@drawable/dota_2_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/league_name"
-                android:contentDescription="@string/dire_team_logo"
                 app:url="@{direState.teamUrl}"
                 tools:src="@drawable/dota_2_icon" />
 

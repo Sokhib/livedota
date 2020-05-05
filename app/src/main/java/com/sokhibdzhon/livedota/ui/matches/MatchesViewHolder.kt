@@ -17,11 +17,14 @@ import com.sokhibdzhon.livedota.databinding.MatchItemBinding
 
 class MatchesViewHolder(
     private val binding: MatchItemBinding,
-    private val onMatchItemClicked: ((Long) -> Unit)?
+    private val onMatchItemClicked: ((Long, String) -> Unit)?
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
         binding.linearMatchItem.setOnClickListener {
-            onMatchItemClicked?.invoke(binding.viewState!!.getMatchId())
+            onMatchItemClicked?.invoke(
+                binding.viewState!!.getMatchId(),
+                binding.viewState!!.getLeagueName()
+            )
         }
     }
 
@@ -33,7 +36,7 @@ class MatchesViewHolder(
     companion object {
         fun create(
             parent: ViewGroup,
-            onMatchItemClicked: ((Long) -> Unit)?
+            onMatchItemClicked: ((Long, String) -> Unit)?
         ): MatchesViewHolder {
             val binding = MatchItemBinding.inflate(LayoutInflater.from(parent.context))
             return MatchesViewHolder(binding, onMatchItemClicked)

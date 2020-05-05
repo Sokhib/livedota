@@ -17,7 +17,7 @@ import javax.inject.Inject
 class MatchesAdapter @Inject constructor() : RecyclerView.Adapter<MatchesViewHolder>() {
 
     private val matchesList = arrayListOf<ProMatches>()
-    var onMatchItemClicked: ((Long) -> Unit)? = null
+    var onMatchItemClicked: ((Long, String) -> Unit)? = null
     fun setMatchList(matchesList: List<ProMatches>) {
         this.matchesList.apply {
             clear()

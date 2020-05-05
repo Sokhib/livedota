@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Player(
     @SerializedName("account_id")
-    val accountId: Int,
+    val accountId: Long,
     val assists: Int,
     @SerializedName("backpack_0")
     val backpack0: Int,

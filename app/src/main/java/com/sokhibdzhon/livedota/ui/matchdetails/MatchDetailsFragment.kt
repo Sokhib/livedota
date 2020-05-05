@@ -15,6 +15,7 @@ import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.databinding.MatchDetailsFragmentBinding
+import com.sokhibdzhon.livedota.util.extensions.runIfNull
 import kotlinx.coroutines.InternalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,6 +26,7 @@ class MatchDetailsFragment : Fragment() {
     private lateinit var viewModel: MatchDetailsViewModel
     private lateinit var binding: MatchDetailsFragmentBinding
     private var matchId: Long = 0
+    private var leagueName: String = "League Name"
 
     @Inject
     internal lateinit var matchDetailsViewModelFactory: ViewModelProvider.Factory
@@ -49,6 +51,7 @@ class MatchDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         matchId = args.matchId
+        leagueName = args.leagueName
     }
 
     @InternalCoroutinesApi
@@ -58,7 +61,10 @@ class MatchDetailsFragment : Fragment() {
             this,
             matchDetailsViewModelFactory
         ).get(MatchDetailsViewModel::class.java)
-        viewModel.loadMatchDetails(matchId)
+        savedInstanceState.runIfNull {
+            viewModel.loadMatchDetails(matchId)
+        }
+        //Get Match Details
         viewModel.matchDetailsLiveData.observe(viewLifecycleOwner, Observer {
             when (it.matchDetailsResource.status) {
                 Status.SUCCESS -> {
@@ -72,16 +78,17 @@ class MatchDetailsFragment : Fragment() {
                 }
             }
         })
-
+        //Get Radiant Team Logo Id
         viewModel.radiantTeamLogoId.observe(viewLifecycleOwner, Observer {
             if (it != null)
                 viewModel.getTeamLogo(it, "radiant")
         })
+        //Get Dire Team Logo Id
         viewModel.direTeamLogoId.observe(viewLifecycleOwner, Observer {
             if (it != null)
                 viewModel.getTeamLogo(it, "dire")
         })
-
+        //Get Radiant Team Logo
         viewModel.radiantTeamLogo.observe(viewLifecycleOwner, Observer {
             when (it.teamLogo.status) {
                 Status.SUCCESS -> {
@@ -95,6 +102,7 @@ class MatchDetailsFragment : Fragment() {
                 }
             }
         })
+        //Get Dire Team Logo
         viewModel.direTeamLogo.observe(viewLifecycleOwner, Observer {
             when (it.teamLogo.status) {
                 Status.SUCCESS -> {
@@ -108,6 +116,7 @@ class MatchDetailsFragment : Fragment() {
                 }
             }
         })
+
 
     }
 

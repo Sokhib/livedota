@@ -62,14 +62,17 @@ class MatchesFragment : Fragment() {
             binding.executePendingBindings()
 
         })
-        matchesAdapter.onMatchItemClicked = { matchId ->
-            navigateToMatchDetails(matchId)
+        matchesAdapter.onMatchItemClicked = { matchId, leagueName ->
+            navigateToMatchDetails(matchId, leagueName)
         }
     }
 
-    private fun navigateToMatchDetails(matchId: Long) {
+    private fun navigateToMatchDetails(matchId: Long, leagueName: String) {
         val direction =
-            MatchesFragmentDirections.actionMatchesFragmentToMatchDetailsFragment(matchId)
+            MatchesFragmentDirections.actionMatchesFragmentToMatchDetailsFragment(
+                matchId,
+                leagueName
+            )
         this.findNavController().navigate(direction)
     }
 }

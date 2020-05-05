@@ -29,7 +29,6 @@ interface SteamApiService {
         @Query("ugcid") ugcId: Long
     ): TeamLogo
 
-    //TODO: Dogru mu degil mi?
     companion object {
         const val API_KEY = "CD46348331B9C662F4E8B22BF1977E0B"
     }

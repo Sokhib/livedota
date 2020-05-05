@@ -3,7 +3,9 @@ package com.sokhibdzhon.livedota.data.network.opendota
 import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.network.model.ProMatches
 import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
+import com.sokhibdzhon.livedota.data.network.model.matchdetails.PlayerInfo
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,7 +20,7 @@ import javax.inject.Inject
  */
 
 
-class OpenDotaDataSourceImpl @Inject constructor(val openDotaApiService: OpenDotaApiService) :
+class OpenDotaDataSourceImpl @Inject constructor(private val openDotaApiService: OpenDotaApiService) :
     OpenDotaDataSource {
     //TODO: try map, filter, drop, combine, flowOn, onCompletion here before emitting
     override fun fetchProMatches(): Flow<Resource<List<ProMatches>>> = flow {
@@ -49,4 +51,15 @@ class OpenDotaDataSourceImpl @Inject constructor(val openDotaApiService: OpenDot
         }
     }
 
+    override fun fetchPlayer(accountId: Long): Flow<Resource<PlayerInfo>> = flow {
+        Timber.d("Fetching Player...")
+        emit(Resource.loading())
+        try {
+            val player = openDotaApiService.getPlayer(accountId)
+            emit(Resource.success(player))
+        } catch (exception: Exception) {
+            Timber.d("$exception")
+            emit(Resource.error<PlayerInfo>(exception.message ?: "Error loading Pro Matches"))
+        }
+    }.conflate()
 }

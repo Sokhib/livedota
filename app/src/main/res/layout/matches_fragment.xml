@@ -57,5 +57,15 @@
             android:indeterminateTintMode="src_atop"
             android:visibility="@{viewState.proMatchesProgressBarVisibility}" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/size_16dp"
+            android:text="@{viewState.textViewErrorText}"
+            android:textColor="@color/colorWhite"
+            android:visibility="@{viewState.textViewErrorVisibility}"
+            tools:text="Error" />
+
     </RelativeLayout>
 </layout>

@@ -35,5 +35,8 @@
             android:name="matchId"
             android:defaultValue="0L"
             app:argType="long" />
+        <argument
+            android:name="leagueName"
+            app:argType="string" />
     </fragment>
 </navigation>

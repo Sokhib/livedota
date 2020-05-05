@@ -10,11 +10,12 @@ import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
 import com.sokhibdzhon.livedota.data.network.steam.SteamDataSourceImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class MatchDetailsViewModel @Inject constructor(
     private val steamDataSourceImpl: SteamDataSourceImpl,
-    openDotaDataSourceImpl: OpenDotaDataSourceImpl
+    private val openDotaDataSourceImpl: OpenDotaDataSourceImpl
 ) :
     ViewModel() {
     private val _matchDetailsLiveData: MutableLiveData<MatchDetailsViewState> = MutableLiveData()
@@ -22,17 +23,6 @@ class MatchDetailsViewModel @Inject constructor(
         get() = _matchDetailsLiveData
 
     private val heroes: Flow<Resource<Heroes>> = openDotaDataSourceImpl.fetchHeroes()
-
-    fun getTeamLogo(logoId: Long, team: String) {
-        steamDataSourceImpl.fetchTeamLogo(logoId)
-            .onEach {
-                if (team == "radiant") {
-                    _radiantTeamLogo.value = TeamViewState(it)
-                } else {
-                    _direTeamLogo.value = TeamViewState(it)
-                }
-            }.launchIn(viewModelScope)
-    }
 
     private val _radiantTeamLogoId: MutableLiveData<Long> = MutableLiveData()
     val radiantTeamLogoId
@@ -51,9 +41,10 @@ class MatchDetailsViewModel @Inject constructor(
     val direTeamLogo
         get() = _direTeamLogo
 
-
+    //Solve this matchId problem onConfigChange it fetches more than once
     @ExperimentalCoroutinesApi
     fun loadMatchDetails(matchId: Long) {
+        Timber.d("MatchId====== $matchId")
         steamDataSourceImpl.fetchMatchDetails(matchId)
             .combine(heroes, ::combineHeroesWithPicksBans)
             .map {
@@ -68,5 +59,16 @@ class MatchDetailsViewModel @Inject constructor(
             }.launchIn(viewModelScope)
 
 
+    }
+
+    fun getTeamLogo(logoId: Long, team: String) {
+        steamDataSourceImpl.fetchTeamLogo(logoId)
+            .onEach {
+                if (team == "radiant") {
+                    _radiantTeamLogo.value = TeamViewState(it)
+                } else {
+                    _direTeamLogo.value = TeamViewState(it)
+                }
+            }.launchIn(viewModelScope)
     }
 }
