@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Profile(
     @SerializedName("account_id")
-    val accountId: Int,
+    val accountId: Int = 0,
     val avatar: String,
     val avatarfull: String,
     val avatarmedium: String,

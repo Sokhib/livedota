@@ -15,6 +15,7 @@ import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.databinding.MatchDetailsFragmentBinding
+import com.sokhibdzhon.livedota.util.enums.Teams
 import com.sokhibdzhon.livedota.util.extensions.runIfNull
 import kotlinx.coroutines.InternalCoroutinesApi
 import timber.log.Timber
@@ -81,12 +82,12 @@ class MatchDetailsFragment : Fragment() {
         //Get Radiant Team Logo Id
         viewModel.radiantTeamLogoId.observe(viewLifecycleOwner, Observer {
             if (it != null)
-                viewModel.getTeamLogo(it, "radiant")
+                viewModel.getTeamLogo(it, Teams.RADIANT)
         })
         //Get Dire Team Logo Id
         viewModel.direTeamLogoId.observe(viewLifecycleOwner, Observer {
             if (it != null)
-                viewModel.getTeamLogo(it, "dire")
+                viewModel.getTeamLogo(it, Teams.DIRE)
         })
         //Get Radiant Team Logo
         viewModel.radiantTeamLogo.observe(viewLifecycleOwner, Observer {
@@ -117,7 +118,21 @@ class MatchDetailsFragment : Fragment() {
             }
         })
 
+        //Get Players Id
+        viewModel.playerIds.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                viewModel.getPlayers(it)
+            }
+        })
 
+        viewModel.players.observe(viewLifecycleOwner, Observer { playersList ->
+            if (playersList.size == 10) {
+                binding.playersState = PlayerViewState(playersList)
+            }
+        })
+
+        binding.leagueName.text = leagueName
     }
+
 
 }

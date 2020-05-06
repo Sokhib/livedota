@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
+import com.sokhibdzhon.livedota.data.network.model.matchdetails.Player
+import com.sokhibdzhon.livedota.data.network.model.matchdetails.PlayerInfo
 import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
 import com.sokhibdzhon.livedota.data.network.steam.SteamDataSourceImpl
+import com.sokhibdzhon.livedota.util.enums.Teams
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class MatchDetailsViewModel @Inject constructor(
@@ -41,16 +43,24 @@ class MatchDetailsViewModel @Inject constructor(
     val direTeamLogo
         get() = _direTeamLogo
 
+    private val _playerIds: MutableLiveData<List<Player>> = MutableLiveData()
+    val playerIds
+        get() = _playerIds
+
+    private val _players: MutableLiveData<List<Resource<PlayerInfo>>> = MutableLiveData()
+    val players
+        get() = _players
+
     //Solve this matchId problem onConfigChange it fetches more than once
     @ExperimentalCoroutinesApi
     fun loadMatchDetails(matchId: Long) {
-        Timber.d("MatchId====== $matchId")
         steamDataSourceImpl.fetchMatchDetails(matchId)
             .combine(heroes, ::combineHeroesWithPicksBans)
             .map {
                 if (it.status == Status.SUCCESS) {
                     _radiantTeamLogoId.value = it.data?.result?.radiantLogo
                     _direTeamLogoId.value = it.data?.result?.direLogo
+                    _playerIds.value = it.data?.result?.players
                 }
                 it
             }
@@ -61,14 +71,26 @@ class MatchDetailsViewModel @Inject constructor(
 
     }
 
-    fun getTeamLogo(logoId: Long, team: String) {
+    fun getTeamLogo(logoId: Long, team: Teams) {
         steamDataSourceImpl.fetchTeamLogo(logoId)
             .onEach {
-                if (team == "radiant") {
+                if (team == Teams.RADIANT) {
                     _radiantTeamLogo.value = TeamViewState(it)
                 } else {
                     _direTeamLogo.value = TeamViewState(it)
                 }
+            }.launchIn(viewModelScope)
+    }
+
+    fun getPlayers(playerIds: List<Player>) {
+        val listOfPlayers = mutableListOf<Resource<PlayerInfo>>()
+        openDotaDataSourceImpl.fetchPlayer(playerIds)
+            .onEach {
+                if (it.status == Status.SUCCESS) {
+                    listOfPlayers.add(it)
+                    _players.value = listOfPlayers
+                }
+
             }.launchIn(viewModelScope)
     }
 }

@@ -3,10 +3,11 @@ package com.sokhibdzhon.livedota.data.network.opendota
 import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.network.model.ProMatches
 import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
+import com.sokhibdzhon.livedota.data.network.model.matchdetails.Player
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.PlayerInfo
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.conflate
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -51,15 +52,24 @@ class OpenDotaDataSourceImpl @Inject constructor(private val openDotaApiService:
         }
     }
 
-    override fun fetchPlayer(accountId: Long): Flow<Resource<PlayerInfo>> = flow {
-        Timber.d("Fetching Player...")
-        emit(Resource.loading())
+    @FlowPreview
+    override fun fetchPlayer(accounts: List<Player>): Flow<Resource<PlayerInfo>> = flow {
+
         try {
-            val player = openDotaApiService.getPlayer(accountId)
-            emit(Resource.success(player))
+            val players = accounts.asFlow().flatMapMerge(concurrency = 1) { player ->
+                flow {
+                    val res = openDotaApiService.getPlayer(player.accountId)
+                    emit(Resource.success(res))
+                }
+            }.flowOn(Dispatchers.IO)
+
+            players.collect {
+                emit(it)
+            }
+
         } catch (exception: Exception) {
             Timber.d("$exception")
-            emit(Resource.error<PlayerInfo>(exception.message ?: "Error loading Pro Matches"))
         }
-    }.conflate()
+    }
+
 }

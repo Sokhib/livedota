@@ -38,6 +38,7 @@ data class MatchDetailsViewState(val matchDetailsResource: Resource<MatchDetails
             else -> View.GONE
         }
     }
+
     fun getLeagueName(): String =
         matchDetailsResource.data?.result?.leagueid.toString()
 
@@ -50,8 +51,8 @@ data class MatchDetailsViewState(val matchDetailsResource: Resource<MatchDetails
         matchDetailsResource.data?.result?.radiantName ?: "Radiant Team"
 
     fun getDireTeamName(): String = matchDetailsResource.data?.result?.direName ?: "Dire Team"
-    fun getPlayer(playerPosition: Int): String =
-        matchDetailsResource.data?.result?.players?.get(playerPosition - 1)?.accountId.toString()
+    fun getPlayer(playerPosition: Int): Long =
+        matchDetailsResource.data?.result?.players?.get(playerPosition - 1)?.accountId ?: 0L
 
     fun getRadiantPick(position: Int): String = radiantPicks[position - 1].heroName
     fun getDirePick(position: Int): String = direPicks[position - 1].heroName
