@@ -80,14 +80,12 @@ class MatchDetailsFragment : Fragment() {
             }
         })
         //Get Radiant Team Logo Id
-        viewModel.radiantTeamLogoId.observe(viewLifecycleOwner, Observer {
-            if (it != null)
-                viewModel.getTeamLogo(it, Teams.RADIANT)
+        viewModel.radiantTeamLogoId.observe(viewLifecycleOwner, Observer { radiantLogoId ->
+            radiantLogoId.let { viewModel.getTeamLogo(radiantLogoId, Teams.RADIANT) }
         })
         //Get Dire Team Logo Id
-        viewModel.direTeamLogoId.observe(viewLifecycleOwner, Observer {
-            if (it != null)
-                viewModel.getTeamLogo(it, Teams.DIRE)
+        viewModel.direTeamLogoId.observe(viewLifecycleOwner, Observer { direLogoId ->
+            direLogoId.let { viewModel.getTeamLogo(direLogoId, Teams.DIRE) }
         })
         //Get Radiant Team Logo
         viewModel.radiantTeamLogo.observe(viewLifecycleOwner, Observer {
@@ -119,15 +117,14 @@ class MatchDetailsFragment : Fragment() {
         })
 
         //Get Players Id
-        viewModel.playerIds.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                viewModel.getPlayers(it)
-            }
+        viewModel.playerIds.observe(viewLifecycleOwner, Observer { playerIdList ->
+            playerIdList.let { viewModel.getPlayers(playerIdList) }
         })
 
         viewModel.players.observe(viewLifecycleOwner, Observer { playersList ->
-            if (playersList.size == 10) {
-                binding.playersState = PlayerViewState(playersList)
+            when (playersList.size) {
+                1 -> Toast.makeText(activity, "Loading Players", Toast.LENGTH_SHORT).show()
+                10 -> binding.playersState = PlayerViewState(playersList)
             }
         })
 

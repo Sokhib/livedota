@@ -6,8 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
-import com.sokhibdzhon.livedota.data.network.model.matchdetails.Player
-import com.sokhibdzhon.livedota.data.network.model.matchdetails.PlayerInfo
+import com.sokhibdzhon.livedota.data.network.model.matchdetails.*
 import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
 import com.sokhibdzhon.livedota.data.network.steam.SteamDataSourceImpl
 import com.sokhibdzhon.livedota.util.enums.Teams
@@ -58,9 +57,9 @@ class MatchDetailsViewModel @Inject constructor(
             .combine(heroes, ::combineHeroesWithPicksBans)
             .map {
                 if (it.status == Status.SUCCESS) {
-                    _radiantTeamLogoId.value = it.data?.result?.radiantLogo
-                    _direTeamLogoId.value = it.data?.result?.direLogo
-                    _playerIds.value = it.data?.result?.players
+                    _radiantTeamLogoId.value = it.data?.getRadiantLogo()
+                    _direTeamLogoId.value = it.data?.getDireLogo()
+                    _playerIds.value = it.data?.getPlayers()
                 }
                 it
             }
@@ -74,10 +73,9 @@ class MatchDetailsViewModel @Inject constructor(
     fun getTeamLogo(logoId: Long, team: Teams) {
         steamDataSourceImpl.fetchTeamLogo(logoId)
             .onEach {
-                if (team == Teams.RADIANT) {
-                    _radiantTeamLogo.value = TeamViewState(it)
-                } else {
-                    _direTeamLogo.value = TeamViewState(it)
+                when (team) {
+                    Teams.RADIANT -> _radiantTeamLogo.value = TeamViewState(it)
+                    else -> _direTeamLogo.value = TeamViewState(it)
                 }
             }.launchIn(viewModelScope)
     }
