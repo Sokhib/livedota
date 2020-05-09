@@ -20,7 +20,7 @@ class MatchesViewHolder(
     private val onMatchItemClicked: ((Long, String) -> Unit)?
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
-        binding.linearMatchItem.setOnClickListener {
+        binding.constraintItem.setOnClickListener {
             onMatchItemClicked?.invoke(
                 binding.viewState!!.getMatchId(),
                 binding.viewState!!.getLeagueName()

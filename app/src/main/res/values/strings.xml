@@ -12,4 +12,6 @@
     <string name="crying_windranger">crying windranger</string>
     <string name="recent_matches">Recent Matches</string>
     <string name="time">"%1$s''"</string>
+    <string name="favorites_button">favorites button</string>
+    <string name="dash">-</string>
 </resources>
