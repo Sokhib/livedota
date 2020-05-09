@@ -6,6 +6,7 @@ import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.Player
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.PlayerInfo
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import timber.log.Timber
@@ -52,11 +53,12 @@ class OpenDotaDataSourceImpl @Inject constructor(private val openDotaApiService:
         }
     }
 
+    @ExperimentalCoroutinesApi
     @FlowPreview
-    override fun fetchPlayer(accounts: List<Player>): Flow<Resource<PlayerInfo>> = flow {
+    override fun fetchPlayer(playerIds: List<Player>): Flow<Resource<PlayerInfo>> = flow {
 
         try {
-            val players = accounts.asFlow().flatMapMerge(concurrency = 1) { player ->
+            val players = playerIds.asFlow().flatMapMerge(concurrency = 1) { player ->
                 flow {
                     val res = openDotaApiService.getPlayer(player.accountId)
                     emit(Resource.success(res))

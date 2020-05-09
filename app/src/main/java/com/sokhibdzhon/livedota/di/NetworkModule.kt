@@ -22,7 +22,6 @@ import javax.inject.Singleton
 ║ sokhibsaid@gmail.com                ║
 ╚═════════════════════════════════════╝
  */
-//TODO: Ask what if my SERVER_URL changes?
 @Module
 class NetworkModule {
     @Singleton

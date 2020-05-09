@@ -5,11 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
-//TODO:What should be viewModel responsible for ?
+@ExperimentalCoroutinesApi
 class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaDataSourceImpl) :
     ViewModel() {
     private val _proMatchesLiveData: MutableLiveData<MatchesFragmentViewState> = MutableLiveData()
@@ -21,11 +22,12 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
     val proMatchesLiveData: LiveData<MatchesFragmentViewState>
         get() = _proMatchesLiveData
 
-    //    TODO: Other way to get it which is better ?
+//        TODO: What's the difference between these ways
 //    private val data =
 //        openDotaDataSourceImpl.fetchProMatches().asLiveData(viewModelScope.coroutineContext)
 
     //TODO:Check combineMatchSeries
+    @ExperimentalCoroutinesApi
     fun loadProMatches() {
         openDotaDataSourceImpl.fetchProMatches()
             .onEach {

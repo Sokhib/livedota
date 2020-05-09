@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.Flow
 ║ sokhibsaid@gmail.com                  ║
 ╚═══════════════════════════════════════╝
  */
-//TODO: Database levelde if'lerle check etmek dogru mu yoksa Repo levelde mi yapilasi gerekir?
 @Dao
 abstract class DotaDao {
     @Query("SELECT * FROM pro_matches")
@@ -31,18 +30,5 @@ abstract class DotaDao {
 
     @Query("UPDATE pro_matches SET direSeriesScore = direSeriesScore + 1 WHERE radiantName=:radiantName AND direName=:direName")
     abstract fun updateDireScore(radiantName: String?, direName: String?)
-
-    suspend fun updateOrInsert(comingProMatch: ProMatches) {
-        val existingProMatch: ProMatches =
-            getMatchByTeamsName(comingProMatch.radiantName, comingProMatch.direName)
-        if (existingProMatch == null) {
-            insertProMatch(comingProMatch)
-        } else {
-            if (comingProMatch.radiantWin)
-                updateRadiantScore(comingProMatch.radiantName, comingProMatch.direName)
-            else updateDireScore(comingProMatch.radiantName, comingProMatch.direName)
-
-        }
-    }
 
 }

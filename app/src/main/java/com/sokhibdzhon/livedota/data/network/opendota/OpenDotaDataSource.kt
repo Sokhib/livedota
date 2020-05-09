@@ -12,6 +12,6 @@ interface OpenDotaDataSource {
 
     fun fetchProMatches(): Flow<Resource<List<ProMatches>>>
     fun fetchHeroes(): Flow<Resource<Heroes>>
-    fun fetchPlayer(accountIds: List<Player>): Flow<Resource<PlayerInfo>>
+    fun fetchPlayer(playerIds: List<Player>): Flow<Resource<PlayerInfo>>
 
 }

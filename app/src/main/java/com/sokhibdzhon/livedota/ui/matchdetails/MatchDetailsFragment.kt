@@ -17,8 +17,9 @@ import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.databinding.MatchDetailsFragmentBinding
 import com.sokhibdzhon.livedota.util.enums.Teams
 import com.sokhibdzhon.livedota.util.extensions.runIfNull
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.InternalCoroutinesApi
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -55,6 +56,8 @@ class MatchDetailsFragment : Fragment() {
         leagueName = args.leagueName
     }
 
+    @FlowPreview
+    @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -72,8 +75,6 @@ class MatchDetailsFragment : Fragment() {
                     binding.viewState = it
                 }
                 Status.ERROR -> {
-                    //TODO: Show error dialog.
-                    Timber.d("ERROR...")
                     Toast.makeText(activity, "Error fetching match details", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -94,8 +95,6 @@ class MatchDetailsFragment : Fragment() {
                     binding.radiantState = it
                 }
                 Status.ERROR -> {
-                    //TODO: Show error dialog.
-                    Timber.d("ERROR...")
                     Toast.makeText(activity, "No Radiant Logo", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -108,8 +107,6 @@ class MatchDetailsFragment : Fragment() {
                     binding.direState = it
                 }
                 Status.ERROR -> {
-                    //TODO: Show error dialog.
-                    Timber.d("ERROR...")
                     Toast.makeText(activity, "No Dire Logo", Toast.LENGTH_SHORT)
                         .show()
                 }
