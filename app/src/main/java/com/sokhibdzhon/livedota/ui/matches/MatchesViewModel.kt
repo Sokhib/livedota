@@ -4,16 +4,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
+import com.sokhibdzhon.livedota.data.Status
+import com.sokhibdzhon.livedota.data.local.entity.ProMatches
+import com.sokhibdzhon.livedota.data.repository.DotaRepositoryImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaDataSourceImpl) :
+class MatchesViewModel @Inject constructor(val dotaRepositoryImpl: DotaRepositoryImpl) :
     ViewModel() {
     private val _proMatchesLiveData: MutableLiveData<MatchesFragmentViewState> = MutableLiveData()
+    private val favoritedMatches =
+        dotaRepositoryImpl.getProMatchesFromDb()
+
 
     init {
         loadProMatches()
@@ -29,9 +38,33 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
     //TODO:Check combineMatchSeries
     @ExperimentalCoroutinesApi
     fun loadProMatches() {
-        openDotaDataSourceImpl.fetchProMatches()
+        dotaRepositoryImpl.fetchProMatches()
+            .combine(favoritedMatches, ::combineFavorites)
             .onEach {
-                _proMatchesLiveData.value = MatchesFragmentViewState(it)
+                if (it.status == Status.SUCCESS) {
+                    _proMatchesLiveData.value = MatchesFragmentViewState(it)
+                    Timber.d("${it.data?.get(0)?.isFavorited}")
+                    Timber.d("${it.data?.get(0)?.matchId}")
+                }
             }.launchIn(viewModelScope)
+    }
+
+    suspend fun isFavorited(proMatch: ProMatches): Boolean {
+        return withContext(viewModelScope.coroutineContext) {
+            dotaRepositoryImpl.isFavorited(proMatch.matchId)
+        }
+    }
+
+    fun removeFromFavorites(match: ProMatches) {
+        viewModelScope.launch {
+            dotaRepositoryImpl.removeMatchFromFavorite(match)
+        }
+    }
+
+    fun addToFavorites(proMatch: ProMatches) {
+        viewModelScope.launch {
+            proMatch.isFavorited = true
+            dotaRepositoryImpl.addMatchToFavorite(proMatch)
+        }
     }
 }

@@ -14,6 +14,7 @@
         android:id="@+id/constraintItem"
         android:layout_width="match_parent"
         android:layout_height="192dp"
+        android:layout_margin="@dimen/size_16dp"
         android:background="@drawable/background_round"
         android:padding="@dimen/size_4dp">
 
@@ -49,7 +50,7 @@
             android:layout_gravity="center_vertical|end"
             android:layout_marginStart="@dimen/size_24dp"
             android:layout_marginTop="@dimen/size_16dp"
-            android:layout_marginEnd="@dimen/size_8dp"
+            android:layout_marginEnd="@dimen/size_4dp"
             android:fontFamily="sans-serif-condensed-medium"
             android:text="@{@string/time(viewState.duration)}"
             android:textColor="@color/colorWhite"
@@ -67,8 +68,10 @@
             android:contentDescription="@string/favorites_button"
             android:focusable="true"
             android:padding="@dimen/size_16dp"
+            android:tint="@{viewState.getFavoriteColor(context)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+
             app:srcCompat="@drawable/ic_favorite_24px" />
 
         <TextView

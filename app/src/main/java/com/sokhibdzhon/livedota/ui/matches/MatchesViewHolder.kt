@@ -3,7 +3,7 @@ package com.sokhibdzhon.livedota.ui.matches
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sokhibdzhon.livedota.data.network.model.ProMatches
+import com.sokhibdzhon.livedota.data.local.entity.ProMatches
 import com.sokhibdzhon.livedota.databinding.MatchItemBinding
 
 
@@ -17,7 +17,8 @@ import com.sokhibdzhon.livedota.databinding.MatchItemBinding
 
 class MatchesViewHolder(
     private val binding: MatchItemBinding,
-    private val onMatchItemClicked: ((Long, String) -> Unit)?
+    private val onMatchItemClicked: ((Long, String) -> Unit)?,
+    private val onFavoriteClicked: ((ProMatches) -> Unit)?
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
         binding.constraintItem.setOnClickListener {
@@ -25,6 +26,11 @@ class MatchesViewHolder(
                 binding.viewState!!.getMatchId(),
                 binding.viewState!!.getLeagueName()
             )
+        }
+        binding.favoriteImageView.setOnClickListener {
+
+            //TODO: Add and remove from favorites.
+            onFavoriteClicked?.invoke(binding.viewState!!.match)
         }
     }
 
@@ -36,10 +42,11 @@ class MatchesViewHolder(
     companion object {
         fun create(
             parent: ViewGroup,
-            onMatchItemClicked: ((Long, String) -> Unit)?
+            onMatchItemClicked: ((Long, String) -> Unit)?,
+            onFavoriteClicked: ((ProMatches) -> Unit)?
         ): MatchesViewHolder {
             val binding = MatchItemBinding.inflate(LayoutInflater.from(parent.context))
-            return MatchesViewHolder(binding, onMatchItemClicked)
+            return MatchesViewHolder(binding, onMatchItemClicked, onFavoriteClicked)
         }
     }
 

@@ -2,7 +2,7 @@ package com.sokhibdzhon.livedota.ui.matches
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sokhibdzhon.livedota.data.network.model.ProMatches
+import com.sokhibdzhon.livedota.data.local.entity.ProMatches
 import javax.inject.Inject
 
 
@@ -18,6 +18,7 @@ class MatchesAdapter @Inject constructor() : RecyclerView.Adapter<MatchesViewHol
 
     private val matchesList = arrayListOf<ProMatches>()
     var onMatchItemClicked: ((Long, String) -> Unit)? = null
+    var onFavoriteClicked: ((ProMatches) -> Unit)? = null
     fun setMatchList(matchesList: List<ProMatches>) {
         this.matchesList.apply {
             clear()
@@ -28,7 +29,7 @@ class MatchesAdapter @Inject constructor() : RecyclerView.Adapter<MatchesViewHol
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        MatchesViewHolder.create(parent, onMatchItemClicked)
+        MatchesViewHolder.create(parent, onMatchItemClicked, onFavoriteClicked)
 
     override fun getItemCount() = matchesList.size
 

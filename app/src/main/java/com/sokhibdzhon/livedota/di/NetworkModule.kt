@@ -5,7 +5,11 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.sokhibdzhon.livedota.BuildConfig
 import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaApiService
+import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSource
+import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
 import com.sokhibdzhon.livedota.data.network.steam.SteamApiService
+import com.sokhibdzhon.livedota.data.network.steam.SteamDataSource
+import com.sokhibdzhon.livedota.data.network.steam.SteamDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -37,7 +41,7 @@ class NetworkModule {
         okHttpClient: OkHttpClient
     ): OpenDotaApiService =
         retrofitBuilder.addConverterFactory(provideGsonConvertorFactory())
-            .client(okHttpClient)
+//            .client(okHttpClient)
             .baseUrl(provideOpenDotaServerUrl())
             .build()
             .create(OpenDotaApiService::class.java)
@@ -50,7 +54,7 @@ class NetworkModule {
         okHttpClient: OkHttpClient
     ): SteamApiService =
         retrofitBuilder.addConverterFactory(provideGsonConvertorFactory())
-            .client(okHttpClient)
+//            .client(okHttpClient)
             .baseUrl(provideSteamServerUrl())
             .build()
             .create(SteamApiService::class.java)
@@ -81,4 +85,15 @@ class NetworkModule {
             .addInterceptor(loggingInterceptor)
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideSteamDataSource(steamApiService: SteamApiService): SteamDataSource =
+        SteamDataSourceImpl(steamApiService)
+
+
+    @Provides
+    @Singleton
+    fun provideOpenDotaDataSource(openDotaApiService: OpenDotaApiService): OpenDotaDataSource =
+        OpenDotaDataSourceImpl(openDotaApiService)
 }

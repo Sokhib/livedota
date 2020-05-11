@@ -1,8 +1,6 @@
 package com.sokhibdzhon.livedota.data.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.sokhibdzhon.livedota.data.local.entity.ProMatches
 import kotlinx.coroutines.flow.Flow
 
@@ -15,20 +13,20 @@ import kotlinx.coroutines.flow.Flow
 ╚═══════════════════════════════════════╝
  */
 @Dao
-abstract class DotaDao {
+abstract class FavoriteMatchesDao {
     @Query("SELECT * FROM pro_matches")
     abstract fun getProMatches(): Flow<List<ProMatches>>
 
-    @Insert
-    abstract fun insertProMatch(proMatch: ProMatches)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insertProMatch(proMatch: ProMatches)
 
-    @Query("SELECT * FROM PRO_MATCHES WHERE radiantName=:radiantName AND direName=:direName")
-    abstract fun getMatchByTeamsName(radiantName: String?, direName: String?): ProMatches
+    @Delete
+    abstract suspend fun delete(match: ProMatches)
 
-    @Query("UPDATE pro_matches SET radiantSeriesScore = radiantSeriesScore + 1 WHERE radiantName=:radiantName AND direName=:direName")
-    abstract fun updateRadiantScore(radiantName: String?, direName: String?)
+    @Query("DELETE FROM pro_matches")
+    abstract suspend fun removeFavorite()
 
-    @Query("UPDATE pro_matches SET direSeriesScore = direSeriesScore + 1 WHERE radiantName=:radiantName AND direName=:direName")
-    abstract fun updateDireScore(radiantName: String?, direName: String?)
+    @Query("SELECT isFavorited FROM pro_matches WHERE matchId = :matchId")
+    abstract suspend fun isFavorited(matchId: Long): Boolean
 
 }

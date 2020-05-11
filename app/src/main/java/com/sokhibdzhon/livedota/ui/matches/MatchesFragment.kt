@@ -9,10 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 //TODO: Fix recyclerView margin + wrap content ile nasil duzgun hale getirilir(weight??)?
@@ -51,6 +55,7 @@ class MatchesFragment : Fragment() {
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -64,6 +69,13 @@ class MatchesFragment : Fragment() {
         })
         matchesAdapter.onMatchItemClicked = { matchId, leagueName ->
             navigateToMatchDetails(matchId, leagueName)
+        }
+        matchesAdapter.onFavoriteClicked = { proMatch ->
+
+            lifecycleScope.launch {
+                Timber.d("${proMatch.isFavorited}")
+            }
+
         }
     }
 

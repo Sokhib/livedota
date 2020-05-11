@@ -1,6 +1,6 @@
 package com.sokhibdzhon.livedota.data.network.opendota
 
-import com.sokhibdzhon.livedota.data.network.model.ProMatches
+import com.sokhibdzhon.livedota.data.local.entity.ProMatches
 import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.PlayerInfo
 import retrofit2.http.GET

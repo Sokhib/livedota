@@ -1,7 +1,7 @@
 package com.sokhibdzhon.livedota.data.network.opendota
 
 import com.sokhibdzhon.livedota.data.Resource
-import com.sokhibdzhon.livedota.data.network.model.ProMatches
+import com.sokhibdzhon.livedota.data.local.entity.ProMatches
 import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.Player
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.PlayerInfo
@@ -32,7 +32,11 @@ class OpenDotaDataSourceImpl @Inject constructor(private val openDotaApiService:
             emit(Resource.success(proMatches))
         } catch (exception: Exception) {
             Timber.d("$exception")
-            emit(Resource.error<List<ProMatches>>(exception.message ?: "Error loading Pro Matches"))
+            emit(
+                Resource.error<List<com.sokhibdzhon.livedota.data.local.entity.ProMatches>>(
+                    exception.message ?: "Error loading Pro Matches"
+                )
+            )
         }
 
     }

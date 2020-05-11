@@ -1,30 +1,33 @@
 package com.sokhibdzhon.livedota.di
 
-import android.content.Context
-import androidx.room.Room
-import com.sokhibdzhon.livedota.data.local.DotaDao
-import com.sokhibdzhon.livedota.data.local.DotaDatabase
+import com.sokhibdzhon.livedota.data.local.FavoriteMatchesDao
+import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
+import com.sokhibdzhon.livedota.data.network.steam.SteamDataSourceImpl
+import com.sokhibdzhon.livedota.data.repository.DotaRepositoryImpl
+import com.sokhibdzhon.livedota.data.repository.Repository
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 
 /**     I ❤ Code:)
 ╔═══════════════════════════════════════╗
-║  Created by Sokhibdzhon Saidmuratov  ║
-╠══════════════════════════════════════╣
-║ sokhibsaid@gmail.com                ║
-╚═════════════════════════════════════╝
+║  Created by Sokhibdzhon Saidmuratov   ║
+╠═══════════════════════════════════════╣
+║ sokhibsaid@gmail.com                  ║
+╚═══════════════════════════════════════╝
  */
 
-@Module
+
+@Module(includes = [DatabaseModule::class, NetworkModule::class])
 class DataModule {
-    //Use it to get Repository, local database, dao and remote dataSource object if needed
     @Provides
-    fun provideDatabase(context: Context): DotaDatabase =
-        Room.databaseBuilder(context, DotaDatabase::class.java, "dota-database").build()
-
-
-    @Provides
-    fun provideDotaDao(database: DotaDatabase): DotaDao = database.getDotaDao()
+    @Singleton
+    fun provideRepository(
+        steamDataSourceImpl: SteamDataSourceImpl,
+        openDotaDataSourceImpl: OpenDotaDataSourceImpl,
+        favoriteMatchesDao: FavoriteMatchesDao
+    ): Repository =
+        DotaRepositoryImpl(steamDataSourceImpl, openDotaDataSourceImpl, favoriteMatchesDao)
 
 }
