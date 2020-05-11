@@ -55,16 +55,24 @@ class MatchesViewModel @Inject constructor(val dotaRepositoryImpl: DotaRepositor
         }
     }
 
-    fun removeFromFavorites(match: ProMatches) {
+    fun removeFromFavorites(proMatch: ProMatches) {
         viewModelScope.launch {
-            dotaRepositoryImpl.removeMatchFromFavorite(match)
+            try {
+                dotaRepositoryImpl.removeMatchFromFavorite(proMatch)
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
         }
     }
 
     fun addToFavorites(proMatch: ProMatches) {
         viewModelScope.launch {
-            proMatch.isFavorited = true
-            dotaRepositoryImpl.addMatchToFavorite(proMatch)
+            try {
+                proMatch.isFavorited = true
+                dotaRepositoryImpl.addMatchToFavorite(proMatch)
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
         }
     }
 }
