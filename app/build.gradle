@@ -1,12 +1,16 @@
-apply plugin: 'com.android.application'
+import com.sokhibdzhon.livedota.buildsrc.Configs
+import com.sokhibdzhon.livedota.buildsrc.Deps
+import com.sokhibdzhon.livedota.buildsrc.Plugins
 
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: Plugins.androidApplication
+
+apply plugin: Plugins.kotlinAndroid
+apply plugin: Plugins.kotlinKapt
+apply plugin: Plugins.kotlinAndroidExtensions
+apply plugin: Plugins.kotlinNavigationSafeArgs
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion Configs.compileSdkVersion
+    buildToolsVersion Configs.buildToolsVersion
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -16,13 +20,13 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     defaultConfig {
-        applicationId "com.sokhibdzhon.livedota"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
+        applicationId Configs.applicationId
+        minSdkVersion Configs.minSdkVersion
+        targetSdkVersion Configs.targetSdkVersion
+        versionCode Configs.versionCode
         vectorDrawables.useSupportLibrary = true
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName Configs.versionName
+        testInstrumentationRunner Configs.testInstrumentationRunner
     }
     buildTypes {
         debug {
@@ -46,54 +50,51 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
-
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    testImplementation 'junit:junit:4.12'
-    implementation 'com.google.android.material:material:1.1.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation Deps.kotlinStdlib
+    implementation Deps.appcompat
+    implementation Deps.ktxCore
+    implementation Deps.constraintLayout
+    implementation Deps.legacySupport
+    implementation Deps.lifecycleExtension
+    implementation Deps.lifecycleViewModel
+    implementation Deps.lifecycleLiveData
+    implementation Deps.lifecycleRuntime
+    implementation Deps.lifecycleRuntimeKtx
+    testImplementation Deps.junit
+    implementation Deps.material
+    androidTestImplementation Deps.testJUnit
+    androidTestImplementation Deps.espressoCore
 
     //Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation Deps.navigationKtx
+    implementation Deps.navigationUiKtx
 
     //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.0.1"
+    implementation Deps.retrofit
+    implementation Deps.retrofitGsonConverter
+    implementation Deps.loggingInterceptor
 
     //Dagger
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation Deps.dagger
+    kapt Deps.daggerCompiler
 
     //Coroutine
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation Deps.coroutine
 
     // Room
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_ktx_version"
+    implementation Deps.roomRuntime
+    kapt Deps.roomCompiler
+    implementation Deps.roomKtx
 
     // Gson
-    implementation "com.google.code.gson:gson:$gson_version"
+    implementation Deps.gson
 
     //Timber
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation Deps.timber
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation Deps.glide
+    kapt Deps.glideCompiler
     //DB
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    debugImplementation Deps.debugDb
 }

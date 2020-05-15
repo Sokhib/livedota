@@ -1,18 +1,8 @@
+import com.sokhibdzhon.livedota.buildsrc.Classpaths
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext {
-        kotlin_version = '1.3.72'
-        room_version = '2.2.5'
-        room_ktx_version = '2.2.5'
-        gson_version = '2.8.6'
-        nav_version = '2.2.1'
-        dagger_version = '2.26'
-        retrofit_version = '2.6.1'
-        lifecycle_version = '2.2.0'
-        coroutine_version = '1.3.4'
-    }
-
     repositories {
         google()
         jcenter()
@@ -20,9 +10,9 @@ buildscript {
     }
     dependencies {
 
-        classpath 'com.android.tools.build:gradle:3.6.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath Classpaths.gradleClasspath
+        classpath Classpaths.kotlinGradleClasspath
+        classpath Classpaths.navigationSafeArgsClasspath
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
