@@ -43,8 +43,6 @@ class MatchesViewModel @Inject constructor(val dotaRepositoryImpl: DotaRepositor
             .onEach {
                 if (it.status == Status.SUCCESS) {
                     _proMatchesLiveData.value = MatchesFragmentViewState(it)
-                    Timber.d("${it.data?.get(0)?.isFavorited}")
-                    Timber.d("${it.data?.get(0)?.matchId}")
                 }
             }.launchIn(viewModelScope)
     }

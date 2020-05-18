@@ -20,13 +20,13 @@ import timber.log.Timber
 import javax.inject.Inject
 
 //TODO: Fix recyclerView margin + wrap content ile nasil duzgun hale getirilir(weight??)?
-//TODO: ViewState'i alarak degil de Resource'u alarak burda yapmak ne kadar dogru Status. check ederek?
-//TODO: Her bir match icin request gondererek ayni anda gelen response'lar icin gostermek gerekirse nasil yapilir?
-//TODO: Check if theme or style overrides any other in views
+//TODO: What is the best way of implementing db
 class MatchesFragment : Fragment() {
 
 
     private lateinit var binding: MatchesFragmentBinding
+
+    @ExperimentalCoroutinesApi
     private lateinit var viewModel: MatchesViewModel
 
     @Inject
@@ -37,9 +37,10 @@ class MatchesFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (activity!!.applicationContext as BaseApplication).appGraph.inject(this)
+        (requireActivity().applicationContext as BaseApplication).appGraph.inject(this)
     }
 
+    @ExperimentalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

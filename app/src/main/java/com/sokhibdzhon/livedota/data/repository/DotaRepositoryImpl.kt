@@ -10,7 +10,10 @@ import com.sokhibdzhon.livedota.data.network.model.matchdetails.PlayerInfo
 import com.sokhibdzhon.livedota.data.network.model.teamitem.TeamLogo
 import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSource
 import com.sokhibdzhon.livedota.data.network.steam.SteamDataSource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -28,8 +31,9 @@ class DotaRepositoryImpl @Inject constructor(
     private val openDotaDataSourceImpl: OpenDotaDataSource,
     private val favoriteMatchesDao: FavoriteMatchesDao
 ) : Repository {
+    @ExperimentalCoroutinesApi
     override fun getProMatchesFromDb(): Flow<List<ProMatches>> {
-        return favoriteMatchesDao.getProMatches()
+        return favoriteMatchesDao.getProMatches().flowOn(Dispatchers.IO)
     }
 
     override suspend fun addMatchToFavorite(proMatches: ProMatches) {
