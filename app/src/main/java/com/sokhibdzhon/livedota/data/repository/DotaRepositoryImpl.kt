@@ -11,7 +11,6 @@ import com.sokhibdzhon.livedota.data.network.model.teamitem.TeamLogo
 import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSource
 import com.sokhibdzhon.livedota.data.network.steam.SteamDataSource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
@@ -31,25 +30,17 @@ class DotaRepositoryImpl @Inject constructor(
     private val openDotaDataSourceImpl: OpenDotaDataSource,
     private val favoriteMatchesDao: FavoriteMatchesDao
 ) : Repository {
-    @ExperimentalCoroutinesApi
     override fun getProMatchesFromDb(): Flow<List<ProMatches>> {
         return favoriteMatchesDao.getProMatches().flowOn(Dispatchers.IO)
     }
 
     override suspend fun addMatchToFavorite(proMatches: ProMatches) {
-        favoriteMatchesDao.insertProMatch(proMatches)
+        favoriteMatchesDao.insertProMatch(listOf(proMatches))
     }
 
     override suspend fun removeMatchFromFavorite(match: ProMatches) {
-        Timber.d("${match.matchId} for sending to DB")
-        // favoriteMatchesDao.removeFavorite()
+        Timber.d("${match.matchId} removed from DB")
         favoriteMatchesDao.delete(match)
-    }
-
-    override suspend fun isFavorited(matchId: Long): Boolean {
-        Timber.d("$matchId")
-        Timber.d("${favoriteMatchesDao.isFavorited(matchId)}")
-        return true
     }
 
 

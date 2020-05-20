@@ -23,8 +23,10 @@ suspend fun combineFavorites(
 ): Resource<List<ProMatches>> = withContext(
     Dispatchers.Default
 ) {
+    favoritedMatches.forEach {
+        Timber.d(it.toString())
+    }
     if (proMatches.status == Status.SUCCESS) {
-        Timber.d("in combine: ${favoritedMatches.size}")
         favoritedMatches.forEach {
             if (proMatches.data?.contains(it)!!) {
                 proMatches.data[proMatches.data.indexOf(it)].isFavorited = true

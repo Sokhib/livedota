@@ -23,7 +23,6 @@ interface Repository {
     fun getProMatchesFromDb(): Flow<List<ProMatches>>
     suspend fun addMatchToFavorite(proMatches: ProMatches)
     suspend fun removeMatchFromFavorite(match: ProMatches)
-    suspend fun isFavorited(matchId: Long): Boolean
 
     //Steam
     fun fetchMatchDetails(matchId: Long): Flow<Resource<MatchDetails>>

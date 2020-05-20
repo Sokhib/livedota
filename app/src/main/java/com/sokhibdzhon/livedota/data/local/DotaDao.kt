@@ -18,15 +18,9 @@ abstract class FavoriteMatchesDao {
     abstract fun getProMatches(): Flow<List<ProMatches>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insertProMatch(proMatch: ProMatches)
+    abstract suspend fun insertProMatch(proMatch: List<ProMatches>)
 
     @Delete
     abstract suspend fun delete(match: ProMatches)
-
-    @Query("DELETE FROM pro_matches")
-    abstract suspend fun removeFavorite()
-
-    @Query("SELECT isFavorited FROM pro_matches WHERE matchId = :matchId")
-    abstract suspend fun isFavorited(matchId: Long): Boolean
 
 }

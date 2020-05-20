@@ -16,6 +16,7 @@ import com.sokhibdzhon.livedota.util.AppUtil
  */
 
 data class MatchesItemViewState(val match: ProMatches) {
+    fun getIsFavored(): Boolean = match.isFavorited
     fun getMatchId(): Long = match.matchId
     fun getDireName(): String = match.direName ?: "Dire Team"
     fun getDireScore(): Int = match.direScore

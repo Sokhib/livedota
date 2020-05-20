@@ -5,22 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 //TODO: Fix recyclerView margin + wrap content ile nasil duzgun hale getirilir(weight??)?
 //TODO: What is the best way of implementing db
+//TODO: 1 data hazir oldugunda combine beklesin how to do it?
 class MatchesFragment : Fragment() {
 
 
@@ -40,7 +40,6 @@ class MatchesFragment : Fragment() {
         (requireActivity().applicationContext as BaseApplication).appGraph.inject(this)
     }
 
-    @ExperimentalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +55,6 @@ class MatchesFragment : Fragment() {
         return binding.root
     }
 
-    @ExperimentalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -71,12 +69,31 @@ class MatchesFragment : Fragment() {
         matchesAdapter.onMatchItemClicked = { matchId, leagueName ->
             navigateToMatchDetails(matchId, leagueName)
         }
+        //TODO: Should it be passed to viewModel and viewModel should handle add and remove ??
+        //TODO: fix color changing
         matchesAdapter.onFavoriteClicked = { proMatch ->
+            Timber.d("${proMatch.isFavorited}")
+            when (proMatch.isFavorited) {
+                true -> {
 
-            lifecycleScope.launch {
-                Timber.d("${proMatch.isFavorited}")
+                    viewModel.removeFromFavorites(proMatch)
+                    Toast.makeText(
+                        requireActivity(),
+                        "Successfully Removed from Favorites",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                false -> {
+
+                    Toast.makeText(
+                        requireActivity(),
+                        "Successfully Added to Favorites",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    viewModel.addToFavorites(proMatch)
+                }
             }
-
+            matchesAdapter.notifyDataSetChanged()
         }
     }
 

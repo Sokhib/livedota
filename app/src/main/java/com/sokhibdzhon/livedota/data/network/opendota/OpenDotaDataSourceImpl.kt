@@ -6,8 +6,6 @@ import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.Player
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.PlayerInfo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -33,7 +31,7 @@ class OpenDotaDataSourceImpl @Inject constructor(private val openDotaApiService:
         } catch (exception: Exception) {
             Timber.d("$exception")
             emit(
-                Resource.error<List<com.sokhibdzhon.livedota.data.local.entity.ProMatches>>(
+                Resource.error<List<ProMatches>>(
                     exception.message ?: "Error loading Pro Matches"
                 )
             )
@@ -57,17 +55,15 @@ class OpenDotaDataSourceImpl @Inject constructor(private val openDotaApiService:
         }
     }
 
-    @ExperimentalCoroutinesApi
-    @FlowPreview
     override fun fetchPlayer(playerIds: List<Player>): Flow<Resource<PlayerInfo>> = flow {
 
         try {
             val players = playerIds.asFlow().flatMapMerge(concurrency = 1) { player ->
                 flow {
-                    val res = openDotaApiService.getPlayer(player.accountId)
-                    emit(Resource.success(res))
+                    val playerInfoResult = openDotaApiService.getPlayer(player.accountId)
+                    emit(Resource.success(playerInfoResult))
                 }
-            }.flowOn(Dispatchers.IO)
+            }.flowOn(Dispatchers.IO) // Needed IO ??
 
             players.collect {
                 emit(it)

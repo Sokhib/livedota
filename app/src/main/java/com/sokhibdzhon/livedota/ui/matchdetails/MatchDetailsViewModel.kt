@@ -10,8 +10,6 @@ import com.sokhibdzhon.livedota.data.network.model.matchdetails.*
 import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
 import com.sokhibdzhon.livedota.data.network.steam.SteamDataSourceImpl
 import com.sokhibdzhon.livedota.util.enums.Teams
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -51,8 +49,6 @@ class MatchDetailsViewModel @Inject constructor(
     val players
         get() = _players
 
-    //Solve this matchId problem onConfigChange it fetches more than once
-    @ExperimentalCoroutinesApi
     fun loadMatchDetails(matchId: Long) {
         steamDataSourceImpl.fetchMatchDetails(matchId)
             .combine(heroes, ::combineHeroesWithPicksBans)
@@ -71,7 +67,6 @@ class MatchDetailsViewModel @Inject constructor(
 
     }
 
-    @ExperimentalCoroutinesApi
     fun getTeamLogo(logoId: Long, team: Teams) {
         steamDataSourceImpl.fetchTeamLogo(logoId)
             .onEach {
@@ -82,8 +77,6 @@ class MatchDetailsViewModel @Inject constructor(
             }.launchIn(viewModelScope)
     }
 
-    @ExperimentalCoroutinesApi
-    @FlowPreview
     fun getPlayers(playerIds: List<Player>) {
         val listOfPlayers = mutableListOf<Resource<PlayerInfo>>()
         openDotaDataSourceImpl.fetchPlayer(playerIds)

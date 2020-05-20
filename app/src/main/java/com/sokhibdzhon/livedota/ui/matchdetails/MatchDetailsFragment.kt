@@ -17,9 +17,6 @@ import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.databinding.MatchDetailsFragmentBinding
 import com.sokhibdzhon.livedota.util.enums.Teams
 import com.sokhibdzhon.livedota.util.extensions.runIfNull
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.InternalCoroutinesApi
 import javax.inject.Inject
 
 
@@ -35,7 +32,7 @@ class MatchDetailsFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (activity!!.applicationContext as BaseApplication).appGraph.inject(this)
+        (requireActivity().applicationContext as BaseApplication).appGraph.inject(this)
     }
 
     override fun onCreateView(
@@ -56,9 +53,6 @@ class MatchDetailsFragment : Fragment() {
         leagueName = args.leagueName
     }
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
-    @InternalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(
@@ -68,6 +62,11 @@ class MatchDetailsFragment : Fragment() {
         savedInstanceState.runIfNull {
             viewModel.loadMatchDetails(matchId)
         }
+//      Another alternative
+//        lifecycleScope.launchWhenCreated {
+//            viewModel.loadMatchDetails(matchId)
+//        }
+
         //Get Match Details
         viewModel.matchDetailsLiveData.observe(viewLifecycleOwner, Observer {
             when (it.matchDetailsResource.status) {
