@@ -1,4 +1,4 @@
-package com.sokhibdzhon.livedota.ui.matches
+package com.sokhibdzhon.livedota.ui.favorites
 
 import android.view.View
 import com.sokhibdzhon.livedota.data.Resource
@@ -15,7 +15,7 @@ import com.sokhibdzhon.livedota.ui.common.MatchesViewState
 ╚═══════════════════════════════════════╝
  */
 
-data class MatchesFragmentViewState(private val proMatchesResource: Resource<List<ProMatches>>) :
+data class FavoriteMatchesViewState(private val proMatchesResource: Resource<List<ProMatches>>) :
     MatchesViewState(proMatchesResource) {
 
     override fun getProMatchesProgressBarVisibility(): Int {

@@ -1,4 +1,4 @@
-package com.sokhibdzhon.livedota.ui.matches.di
+package com.sokhibdzhon.livedota.ui.common.di
 
 import com.sokhibdzhon.livedota.ui.matches.MatchesAdapter
 import dagger.Module

@@ -20,7 +20,11 @@
         android:id="@+id/favoritesFragment"
         android:name="com.sokhibdzhon.livedota.ui.favorites.FavoritesFragment"
         android:label="favorites_fragment"
-        tools:layout="@layout/favorites_fragment" />
+        tools:layout="@layout/favorites_fragment">
+        <action
+            android:id="@+id/action_favoritesFragment_to_matchDetailsFragment2"
+            app:destination="@id/matchDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.sokhibdzhon.livedota.ui.search.SearchFragment"

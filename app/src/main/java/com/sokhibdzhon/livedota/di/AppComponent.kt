@@ -2,9 +2,10 @@ package com.sokhibdzhon.livedota.di
 
 import android.content.Context
 import com.sokhibdzhon.livedota.di.viewmodel.ViewModelModule
+import com.sokhibdzhon.livedota.ui.common.di.MatchesFragmentModule
+import com.sokhibdzhon.livedota.ui.favorites.FavoritesFragment
 import com.sokhibdzhon.livedota.ui.matchdetails.MatchDetailsFragment
 import com.sokhibdzhon.livedota.ui.matches.MatchesFragment
-import com.sokhibdzhon.livedota.ui.matches.di.MatchesFragmentModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -32,5 +33,6 @@ interface AppComponent {
 
     fun inject(matchesFragment: MatchesFragment)
     fun inject(matchDetailsFragment: MatchDetailsFragment)
+    fun inject(favoritesFragment: FavoritesFragment)
 
 }

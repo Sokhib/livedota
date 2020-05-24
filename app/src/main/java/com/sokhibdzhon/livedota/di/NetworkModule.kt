@@ -41,7 +41,7 @@ class NetworkModule {
         okHttpClient: OkHttpClient
     ): OpenDotaApiService =
         retrofitBuilder.addConverterFactory(provideGsonConvertorFactory())
-//            .client(okHttpClient)
+            .client(okHttpClient)
             .baseUrl(provideOpenDotaServerUrl())
             .build()
             .create(OpenDotaApiService::class.java)
@@ -54,7 +54,7 @@ class NetworkModule {
         okHttpClient: OkHttpClient
     ): SteamApiService =
         retrofitBuilder.addConverterFactory(provideGsonConvertorFactory())
-//            .client(okHttpClient)
+            .client(okHttpClient)
             .baseUrl(provideSteamServerUrl())
             .build()
             .create(SteamApiService::class.java)

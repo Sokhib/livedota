@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -26,7 +25,6 @@ class MatchesFragment : Fragment() {
 
     private lateinit var binding: MatchesFragmentBinding
 
-    @ExperimentalCoroutinesApi
     private lateinit var viewModel: MatchesViewModel
 
     @Inject
@@ -51,7 +49,10 @@ class MatchesFragment : Fragment() {
             binding.swipeRefresh.isRefreshing = false
         }
 
-        binding.recyclerMatches.adapter = matchesAdapter
+        binding.recyclerMatches.apply {
+            adapter = matchesAdapter
+            setHasFixedSize(true)
+        }
         return binding.root
     }
 
