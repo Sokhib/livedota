@@ -26,11 +26,6 @@
             app:destination="@id/matchDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.sokhibdzhon.livedota.ui.search.SearchFragment"
-        android:label="search_fragment"
-        tools:layout="@layout/search_fragment" />
-    <fragment
         android:id="@+id/matchDetailsFragment"
         android:name="com.sokhibdzhon.livedota.ui.matchdetails.MatchDetailsFragment"
         android:label="MatchDetailsFragment"
