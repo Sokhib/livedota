@@ -1,6 +1,6 @@
 package com.sokhibdzhon.livedota.ui.common.di
 
-import com.sokhibdzhon.livedota.ui.matches.MatchesAdapter
+import com.sokhibdzhon.livedota.ui.common.MatchesAdapter
 import dagger.Module
 import dagger.Provides
 

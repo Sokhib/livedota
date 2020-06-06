@@ -1,10 +1,11 @@
-package com.sokhibdzhon.livedota.ui.matches
+package com.sokhibdzhon.livedota.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sokhibdzhon.livedota.data.local.entity.ProMatches
 import com.sokhibdzhon.livedota.databinding.MatchItemBinding
+import com.sokhibdzhon.livedota.ui.matches.MatchesItemViewState
 
 
 /**     I ❤ Code:)
@@ -35,7 +36,13 @@ class MatchesViewHolder(
     }
 
     fun bind(proMatch: ProMatches) {
-        binding.viewState = MatchesItemViewState(proMatch)
+        binding.viewState =
+            MatchesItemViewState(proMatch)
+        val params = binding.constraintItem.layoutParams as? ViewGroup.MarginLayoutParams
+        if (params?.topMargin != null) {
+            params.topMargin = 24
+            binding.constraintItem.layoutParams = params
+        }
         binding.executePendingBindings()
     }
 
@@ -46,7 +53,11 @@ class MatchesViewHolder(
             onFavoriteClicked: ((ProMatches) -> Unit)?
         ): MatchesViewHolder {
             val binding = MatchItemBinding.inflate(LayoutInflater.from(parent.context))
-            return MatchesViewHolder(binding, onMatchItemClicked, onFavoriteClicked)
+            return MatchesViewHolder(
+                binding,
+                onMatchItemClicked,
+                onFavoriteClicked
+            )
         }
     }
 

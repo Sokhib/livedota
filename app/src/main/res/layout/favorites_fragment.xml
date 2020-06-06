@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/size_24dp"
             android:layout_marginBottom="@dimen/size_16dp"
             android:fontFamily="sans-serif-condensed-light"
-            android:text="@string/recent_matches"
+            android:text="@string/favored_matches"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/text_size_24sp"
             tools:text="Favored Matches">
@@ -35,10 +35,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/favored_matches"
-            android:layout_marginStart="@dimen/size_12dp"
-            android:layout_marginEnd="@dimen/size_12dp"
             android:clipToPadding="false"
+            android:paddingStart="@dimen/size_16dp"
+            android:paddingLeft="@dimen/size_16dp"
             android:paddingTop="@dimen/size_24dp"
+            android:paddingEnd="@dimen/size_16dp"
+            android:paddingRight="@dimen/size_16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/match_item" />
 

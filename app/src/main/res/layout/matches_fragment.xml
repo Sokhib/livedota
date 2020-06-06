@@ -43,7 +43,11 @@
                 android:layout_marginStart="@dimen/size_12dp"
                 android:layout_marginEnd="@dimen/size_12dp"
                 android:clipToPadding="false"
+                android:paddingStart="@dimen/size_16dp"
+                android:paddingLeft="@dimen/size_16dp"
                 android:paddingTop="@dimen/size_24dp"
+                android:paddingEnd="@dimen/size_16dp"
+                android:paddingRight="@dimen/size_16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/match_item" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

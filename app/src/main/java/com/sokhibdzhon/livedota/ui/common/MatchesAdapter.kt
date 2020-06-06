@@ -1,4 +1,4 @@
-package com.sokhibdzhon.livedota.ui.matches
+package com.sokhibdzhon.livedota.ui.common
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +29,11 @@ class MatchesAdapter @Inject constructor() : RecyclerView.Adapter<MatchesViewHol
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        MatchesViewHolder.create(parent, onMatchItemClicked, onFavoriteClicked)
+        MatchesViewHolder.create(
+            parent,
+            onMatchItemClicked,
+            onFavoriteClicked
+        )
 
     override fun getItemCount() = matchesList.size
 

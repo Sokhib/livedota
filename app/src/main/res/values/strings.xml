@@ -14,4 +14,5 @@
     <string name="time">"%1$s''"</string>
     <string name="favorites_button">favorites button</string>
     <string name="dash">-</string>
+    <string name="favored_matches">Favored Matches</string>
 </resources>
