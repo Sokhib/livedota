@@ -14,6 +14,7 @@
         android:id="@+id/constraintItem"
         android:layout_width="match_parent"
         android:layout_height="192dp"
+        android:layout_margin="@dimen/size_16dp"
         android:background="@drawable/background_round"
         android:padding="@dimen/size_4dp">
 
