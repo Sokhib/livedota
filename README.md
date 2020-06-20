@@ -11,7 +11,7 @@ Sample Dota 2 eSports matches, leagues app based on MVVM architecture.
 <h1>Tech stack & Open-source libraries</h1>
 <ul>
 <li><a href="https://kotlinlang.org/" rel="nofollow">Kotlin</a> based </li>
-<li><a href="https://github.com/Kotlin/kotlinx.coroutines">Coroutines + Flow </a></li>
+<li><a href="https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html">Coroutines + Flow </a></li>
 <li> Architecture Components
 <ul>
 <li>LiveData - observable data holder.</li>
