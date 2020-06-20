@@ -17,7 +17,7 @@ Sample Dota 2 eSports matches, leagues app based on MVVM architecture.
 <li>LiveData - observable data holder.</li>
 <li>Databinding - for binding UI components in your layouts to data sources in your app.</li>
 <li>ViewModel - lifecycle aware for storing and managing UI-related data.</li>
-<li>Room Database - abstraction layer SQLite</li>
+<li>Room Database - provides an abstraction layer over SQLite</li>
 </ul>
 </li>
 <li>Architecture
