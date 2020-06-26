@@ -36,11 +36,6 @@
             android:layout_height="match_parent"
             android:layout_below="@id/favored_matches"
             android:clipToPadding="false"
-            android:paddingStart="@dimen/size_16dp"
-            android:paddingLeft="@dimen/size_16dp"
-            android:paddingTop="@dimen/size_24dp"
-            android:paddingEnd="@dimen/size_16dp"
-            android:paddingRight="@dimen/size_16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/match_item" />
 
