@@ -1,6 +1,9 @@
 package com.sokhibdzhon.livedota.buildsrc
 
 object Versions {
+    const val crashlyticsVersion = "17.1.1"
+    const val gmsGoogleServies = "4.3.3"
+    const val firebaseVersion = "17.4.4"
     const val kotlinVersion = "1.3.72"
     const val roomVersion = "2.2.5"
     const val roomKtxVersion = "2.2.5"
@@ -13,6 +16,7 @@ object Versions {
     const val coroutineVersion = "1.3.4"
     const val gradleVersion = "3.6.3"
     const val appcompatVersion = "1.1.0"
+    const val gradleCrashlyticsVersion = "2.2.0"
     const val coreKtxVersion = "1.2.0"
     const val constraintLayoutVersion = "1.1.3"
     const val legacySupportV4Version = "1.0.0"

@@ -38,4 +38,7 @@ object Deps {
     val glide = "com.github.bumptech.glide:glide:${Versions.glideVersion}"
     val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glideVersion}"
     val debugDb = "com.amitshekhar.android:debug-db:${Versions.debugDbVersion}"
+
+    val firebase = "com.google.firebase:firebase-analytics:${Versions.firebaseVersion}"
+    val crashlytics = "com.google.firebase:firebase-crashlytics:${Versions.crashlyticsVersion}"
 }

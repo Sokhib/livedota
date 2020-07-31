@@ -8,6 +8,9 @@ apply plugin: Plugins.kotlinAndroid
 apply plugin: Plugins.kotlinKapt
 apply plugin: Plugins.kotlinAndroidExtensions
 apply plugin: Plugins.kotlinNavigationSafeArgs
+apply plugin: Plugins.gmsGoogleServices
+apply plugin: Plugins.firebaseCrashlytics
+
 android {
     compileSdkVersion Configs.compileSdkVersion
     buildToolsVersion Configs.buildToolsVersion
@@ -89,6 +92,10 @@ dependencies {
     implementation Deps.roomRuntime
     kapt Deps.roomCompiler
     implementation Deps.roomKtx
+
+    //Firebase
+    implementation Deps.firebase
+    implementation Deps.crashlytics
 
     // Gson
     implementation Deps.gson

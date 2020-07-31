@@ -11,6 +11,9 @@ package com.sokhibdzhon.livedota.buildsrc
 
 object Classpaths {
     val gradleClasspath = "com.android.tools.build:gradle:${Versions.gradleVersion}"
+    val gradleFirebaseCrashlytics =
+        "com.google.firebase:firebase-crashlytics-gradle:${Versions.gradleCrashlyticsVersion}"
+    val gmsGoogleServicesClasspath = "com.google.gms:google-services:${Versions.gmsGoogleServies}"
     val kotlinGradleClasspath =
         "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
     val navigationSafeArgsClasspath =
