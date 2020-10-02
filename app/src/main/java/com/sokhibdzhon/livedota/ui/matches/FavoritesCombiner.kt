@@ -5,7 +5,6 @@ import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.data.local.entity.ProMatches
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 
 /**     I ❤ Code:)
@@ -23,13 +22,12 @@ suspend fun combineFavorites(
 ): Resource<List<ProMatches>> = withContext(
     Dispatchers.Default
 ) {
-    favoritedMatches.forEach {
-        Timber.d(it.toString())
-    }
     if (proMatches.status == Status.SUCCESS) {
-        favoritedMatches.forEach {
-            if (proMatches.data?.contains(it)!!) {
-                proMatches.data[proMatches.data.indexOf(it)].isFavorited = true
+        favoritedMatches.forEach { favoredMatch ->
+            proMatches.data?.forEach { proMatch ->
+                if (favoredMatch.matchId == proMatch.matchId) {
+                    proMatch.isFavorited = true
+                }
             }
         }
 
