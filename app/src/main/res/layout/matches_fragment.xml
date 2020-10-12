@@ -40,10 +40,7 @@
                 android:id="@+id/recyclerMatches"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/size_12dp"
-                android:layout_marginEnd="@dimen/size_12dp"
                 android:clipToPadding="false"
-                android:paddingTop="@dimen/size_24dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/match_item" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -56,6 +53,16 @@
             android:indeterminateTint="@color/colorWhite"
             android:indeterminateTintMode="src_atop"
             android:visibility="@{viewState.proMatchesProgressBarVisibility}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/size_16dp"
+            android:text="@{viewState.textViewErrorText}"
+            android:textColor="@color/colorWhite"
+            android:visibility="@{viewState.textViewErrorVisibility}"
+            tools:text="Error" />
 
     </RelativeLayout>
 </layout>

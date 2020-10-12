@@ -1,18 +1,26 @@
 package com.sokhibdzhon.livedota.ui.matches
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokhibdzhon.livedota.data.network.OpenDotaDataSourceImpl
+import com.sokhibdzhon.livedota.data.local.entity.ProMatches
+import com.sokhibdzhon.livedota.data.repository.DotaRepositoryImpl
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
-//TODO:What should be viewModel responsible for ?
-class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaDataSourceImpl) :
+class MatchesViewModel @ViewModelInject constructor(val dotaRepositoryImpl: DotaRepositoryImpl) :
     ViewModel() {
     private val _proMatchesLiveData: MutableLiveData<MatchesFragmentViewState> = MutableLiveData()
+
+    //Inetten once 1 kere datayi cekiyor...
+    private val favoritedMatches =
+        dotaRepositoryImpl.getProMatchesFromDb()
+
 
     init {
         loadProMatches()
@@ -21,25 +29,39 @@ class MatchesViewModel @Inject constructor(val openDotaDataSourceImpl: OpenDotaD
     val proMatchesLiveData: LiveData<MatchesFragmentViewState>
         get() = _proMatchesLiveData
 
-    //    TODO: Other way to get it which is better ?
-//    private val _data =
+//        TODO: What's the difference between these ways
+//    private val data =
 //        openDotaDataSourceImpl.fetchProMatches().asLiveData(viewModelScope.coroutineContext)
-//
-//    val data: LiveData<Resource<List<ProMatches>>>
-//        get() = _data
 
-    //TODO: Where to do map. it didin't work here:)
     fun loadProMatches() {
-        openDotaDataSourceImpl.fetchProMatches()
+        dotaRepositoryImpl.fetchProMatches()
+            .combine(favoritedMatches, ::combineFavorites)
             .onEach {
-                _proMatchesLiveData.value = combineMatches(it)
-            }.launchIn(viewModelScope)
+                _proMatchesLiveData.value = MatchesFragmentViewState(it)
 
+            }.launchIn(viewModelScope)
     }
-    //TODO: What's the problem with this approach?
-//    openDotaDataSourceImpl.fetchProMatches()
-//    .map {
-//        combineMatches(combineMatchSeries(it as Resource<MutableList<ProMatches>>))
-//    }
-//    .asLiveData()
+
+
+    fun removeFromFavorites(proMatch: ProMatches) {
+        viewModelScope.launch {
+            try {
+                proMatch.isFavorited = false
+                dotaRepositoryImpl.removeMatchFromFavorite(proMatch)
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+        }
+    }
+
+    fun addToFavorites(proMatch: ProMatches) {
+        viewModelScope.launch {
+            try {
+                proMatch.isFavorited = true
+                dotaRepositoryImpl.addMatchToFavorite(proMatch)
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+        }
+    }
 }

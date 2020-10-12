@@ -7,12 +7,14 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.ActivityMainBinding
+import com.sokhibdzhon.livedota.util.extensions.dismissRecreation
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // DI'de dogrusu nasil olmali applicationContext, Context, Application ??
 
 
         super.onCreate(savedInstanceState)
@@ -20,15 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(binding.bottomNavView, navController)
-
-////      Testing data from API
-//        GlobalScope.launch(Dispatchers.IO) {
-//            dataSourceImpl.fetchProMatches().collect {
-//
-//                Log.d("MainActivity", "${it.status}")
-//                Log.d("MainActivity", "${it.data}")
-//            }
-//        }
+        binding.bottomNavView.dismissRecreation()
 
     }
 }

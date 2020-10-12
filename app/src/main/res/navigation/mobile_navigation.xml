@@ -20,20 +20,22 @@
         android:id="@+id/favoritesFragment"
         android:name="com.sokhibdzhon.livedota.ui.favorites.FavoritesFragment"
         android:label="favorites_fragment"
-        tools:layout="@layout/favorites_fragment" />
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.sokhibdzhon.livedota.ui.search.SearchFragment"
-        android:label="search_fragment"
-        tools:layout="@layout/search_fragment" />
+        tools:layout="@layout/favorites_fragment">
+        <action
+            android:id="@+id/action_favoritesFragment_to_matchDetailsFragment2"
+            app:destination="@id/matchDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/matchDetailsFragment"
-        android:name="com.sokhibdzhon.livedota.ui.match_details.MatchDetailsFragment"
+        android:name="com.sokhibdzhon.livedota.ui.matchdetails.MatchDetailsFragment"
         android:label="MatchDetailsFragment"
         tools:layout="@layout/match_details_fragment">
         <argument
             android:name="matchId"
             android:defaultValue="0L"
             app:argType="long" />
+        <argument
+            android:name="leagueName"
+            app:argType="string" />
     </fragment>
 </navigation>

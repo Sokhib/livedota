@@ -1,20 +1,819 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewState"
+            type="com.sokhibdzhon.livedota.ui.matchdetails.MatchDetailsViewState" />
+
+        <variable
+            name="radiantState"
+            type="com.sokhibdzhon.livedota.ui.matchdetails.TeamViewState" />
+
+        <variable
+            name="direState"
+            type="com.sokhibdzhon.livedota.ui.matchdetails.TeamViewState" />
+
+        <variable
+            name="playersState"
+            type="com.sokhibdzhon.livedota.ui.matchdetails.PlayerViewState" />
     </data>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.match_details.MatchDetailsFragment">
+        android:background="@color/colorSecondary">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_16dp">
 
-    </FrameLayout>
+            <TextView
+                android:id="@+id/league_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/size_16dp"
+                android:layout_marginVertical="@dimen/size_16dp"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="The International" />
+
+            <ProgressBar
+                android:id="@+id/match_details_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorWhite"
+                android:indeterminateTintMode="src_atop"
+                android:orientation="horizontal"
+                android:visibility="@{playersState.progressBarVisibility}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.33" />
+
+            <ImageView
+                android:id="@+id/radiant_team_logo"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/radiant_team_logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/league_name"
+                app:url="@{radiantState.teamUrl}"
+                tools:src="@drawable/dota_2_icon" />
+
+
+            <TextView
+                android:id="@+id/matchd_radiant_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="@{String.valueOf(viewState.radiantScore)}"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/radiant_team_logo"
+                app:layout_constraintStart_toEndOf="@+id/radiant_team_logo"
+                app:layout_constraintTop_toTopOf="@+id/radiant_team_logo"
+                app:layout_constraintVertical_bias="0"
+                tools:text="99" />
+
+            <TextView
+                android:id="@+id/matchd_dire_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:text="@{String.valueOf(viewState.direScore)}"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dire_team_logo"
+                app:layout_constraintEnd_toStartOf="@+id/dire_team_logo"
+                app:layout_constraintTop_toTopOf="@+id/dire_team_logo"
+                app:layout_constraintVertical_bias="0"
+                tools:text="98" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/matchd_dire_score"
+                app:layout_constraintStart_toEndOf="@+id/matchd_radiant_score"
+                app:layout_constraintTop_toTopOf="@+id/matchd_radiant_score"
+                tools:text=":" />
+
+            <TextView
+                android:id="@+id/radiant_series_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="@{String.valueOf(viewState.radiantSeriesScore)}"
+                android:textColor="@color/colorWhite"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toBottomOf="@+id/radiant_team_logo"
+                app:layout_constraintStart_toEndOf="@+id/radiant_team_logo"
+                app:layout_constraintTop_toTopOf="@+id/radiant_team_logo"
+                app:layout_constraintVertical_bias="0.8"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/dire_series_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:text="@{String.valueOf(viewState.direSeriesScore)}"
+                android:textColor="@color/colorWhite"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dire_team_logo"
+                app:layout_constraintEnd_toStartOf="@+id/dire_team_logo"
+                app:layout_constraintTop_toTopOf="@+id/dire_team_logo"
+                app:layout_constraintVertical_bias="0.8"
+                tools:text="2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textColor="@color/colorWhite"
+                android:textSize="48sp"
+                app:layout_constraintEnd_toStartOf="@+id/dire_series_score"
+                app:layout_constraintStart_toEndOf="@+id/radiant_series_score"
+                app:layout_constraintTop_toTopOf="@+id/radiant_series_score"
+                tools:text="-" />
+
+            <ImageView
+                android:id="@+id/dire_team_logo"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="@dimen/size_24dp"
+                android:contentDescription="@string/dire_team_logo"
+                android:src="@drawable/dota_2_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/league_name"
+                app:url="@{direState.teamUrl}"
+                tools:src="@drawable/dota_2_icon" />
+
+            <TextView
+                android:id="@+id/matchd_radiant_team_name"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:fontFamily="sans-serif"
+                android:gravity="start"
+                android:text="@{viewState.radiantTeamName}"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_team_logo"
+                tools:text="Natus VincereNatus VincereNatus Vincere" />
+
+            <TextView
+                android:id="@+id/matchd_dire_team_name"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="sans-serif"
+                android:gravity="start"
+                android:text="@{viewState.direTeamName}"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_team_logo"
+                tools:text="Evil GeniusesEvil GeniusesEvil GeniusesEvil" />
+
+            <TextView
+                android:id="@+id/players"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/size_16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-condensed-light"
+                android:text="Players"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/matchd_radiant_team_name"
+                tools:text="Players" />
+
+            <TextView
+                android:id="@+id/radiant_player_1"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{playersState.getPlayer(1)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/players"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/radiant_player_2"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{playersState.getPlayer(2)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_player_1"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/radiant_player_3"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{playersState.getPlayer(3)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_player_2"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/radiant_player_4"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{playersState.getPlayer(4)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_player_3"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/radiant_player_5"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{playersState.getPlayer(5)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_player_4"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_player_1"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{playersState.getPlayer(6)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/players"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_player_2"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{playersState.getPlayer(7)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_player_1"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_player_3"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{playersState.getPlayer(8)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_player_2"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_player_4"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{playersState.getPlayer(9)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_player_3"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_player_5"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{playersState.getPlayer(10)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_player_4"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/picks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/size_16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-condensed-light"
+                android:text="Picks"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_player_5"
+                tools:text="Picks" />
+
+            <TextView
+                android:id="@+id/radiant_pick_1"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getRadiantPick(1)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/picks"
+                tools:text="Pugnaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/radiant_pick_2"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getRadiantPick(2)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_pick_1"
+                tools:text="Pugnaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/radiant_pick_3"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getRadiantPick(3)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_pick_2"
+                tools:text="Pugnaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/radiant_pick_4"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getRadiantPick(4)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_pick_3"
+                tools:text="Pugnaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/radiant_pick_5"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getRadiantPick(5)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_pick_4"
+                tools:text="Pugnaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/dire_pick_1"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getDirePick(1)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/picks"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_pick_2"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getDirePick(2)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_pick_1"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_pick_3"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getDirePick(3)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_pick_2"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_pick_4"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getDirePick(4)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_pick_3"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_pick_5"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getDirePick(5)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_pick_4"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/bans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/size_16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-condensed-light"
+                android:text="Bans"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_pick_5"
+                tools:text="Bans" />
+
+            <TextView
+                android:id="@+id/radiant_ban_1"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getRadiantBan(1)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bans"
+                tools:text="Pugnaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/radiant_ban_2"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getRadiantBan(2)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_ban_1"
+                tools:text="Pugnaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/radiant_ban_3"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getRadiantBan(3)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_ban_2"
+                tools:text="Pugnaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/radiant_ban_4"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getRadiantBan(4)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_ban_3"
+                tools:text="Pugnaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/radiant_ban_5"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:background="@drawable/background_radiant_green"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getRadiantBan(5)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiant_ban_4"
+                tools:text="Pugnaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/dire_ban_1"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getDireBan(1)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bans"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_ban_2"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getDireBan(2)()}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_ban_1"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_ban_3"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getDireBan(3)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_ban_2"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_ban_4"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getDireBan(4)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_ban_3"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+
+            <TextView
+                android:id="@+id/dire_ban_5"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_dire_red"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_4dp"
+                android:paddingVertical="@dimen/size_2dp"
+                android:text="@{viewState.getDireBan(5)}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dire_ban_4"
+                tools:text="Arteezyyyyyyyyyyyyyyyyy" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

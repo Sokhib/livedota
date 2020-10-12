@@ -6,6 +6,8 @@
     <color name="colorPrimary">#1a1a30</color>
     <color name="colorPrimaryDark">#000008</color>
     <color name="colorPrimaryLight">#928FB1</color>
+    <color name="sunglo">#E56965</color>
+    <color name="pastel_green">#65E569</color>
     <!--Color Secondary -->
     <color name="colorSecondary">#0f1317</color>
     <color name="colorSecondaryLight">#757E86</color>

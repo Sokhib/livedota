@@ -2,6 +2,8 @@ package com.sokhibdzhon.livedota.di.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.sokhibdzhon.livedota.ui.favorites.FavoritesViewModel
+import com.sokhibdzhon.livedota.ui.matchdetails.MatchDetailsViewModel
 import com.sokhibdzhon.livedota.ui.matches.MatchesViewModel
 import dagger.Binds
 import dagger.Module
@@ -26,5 +28,13 @@ abstract class ViewModelModule {
     @ViewModelMapKey(MatchesViewModel::class)
     internal abstract fun bindMatchesViewModel(viewModel: MatchesViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelMapKey(MatchDetailsViewModel::class)
+    internal abstract fun bindMatchDetailsViewModel(viewModel: MatchDetailsViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelMapKey(FavoritesViewModel::class)
+    internal abstract fun bindFavoritesViewModel(viewModel: FavoritesViewModel): ViewModel
 }
