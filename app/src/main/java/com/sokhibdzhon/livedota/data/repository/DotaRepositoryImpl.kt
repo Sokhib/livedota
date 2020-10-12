@@ -3,6 +3,7 @@ package com.sokhibdzhon.livedota.data.repository
 import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.local.FavoriteMatchesDao
 import com.sokhibdzhon.livedota.data.local.entity.ProMatches
+import com.sokhibdzhon.livedota.data.model.MatchId
 import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.MatchDetails
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.Player
@@ -44,7 +45,7 @@ class DotaRepositoryImpl @Inject constructor(
     }
 
 
-    override fun fetchMatchDetails(matchId: Long): Flow<Resource<MatchDetails>> =
+    override fun fetchMatchDetails(matchId: MatchId): Flow<Resource<MatchDetails>> =
         steamDataSourceImpl.fetchMatchDetails(matchId)
 
 

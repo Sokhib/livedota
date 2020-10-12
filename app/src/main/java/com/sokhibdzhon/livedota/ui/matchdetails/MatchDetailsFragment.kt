@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.data.Status
+import com.sokhibdzhon.livedota.data.model.MatchId
 import com.sokhibdzhon.livedota.databinding.MatchDetailsFragmentBinding
 import com.sokhibdzhon.livedota.util.enums.Teams
 import com.sokhibdzhon.livedota.util.extensions.runIfNull
@@ -22,7 +23,7 @@ class MatchDetailsFragment : Fragment() {
 
     private val viewModel: MatchDetailsViewModel by viewModels()
     private lateinit var binding: MatchDetailsFragmentBinding
-    private var matchId: Long = 0
+    private var matchId: MatchId = MatchId(0)
     private var leagueName: String = "League Name"
 
     override fun onCreateView(
@@ -39,7 +40,7 @@ class MatchDetailsFragment : Fragment() {
     private val args: MatchDetailsFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        matchId = args.matchId
+        matchId = MatchId(args.matchId)
         leagueName = args.leagueName
     }
 

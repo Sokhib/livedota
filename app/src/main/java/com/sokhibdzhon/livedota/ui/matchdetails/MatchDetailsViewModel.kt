@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.Status
+import com.sokhibdzhon.livedota.data.model.MatchId
 import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.*
 import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
@@ -49,7 +50,7 @@ class MatchDetailsViewModel @ViewModelInject constructor(
     val players
         get() = _players
 
-    fun loadMatchDetails(matchId: Long) {
+    fun loadMatchDetails(matchId: MatchId) {
         steamDataSourceImpl.fetchMatchDetails(matchId)
             .combine(heroes, ::combineHeroesWithPicksBans)
             .map {

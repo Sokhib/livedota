@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.sokhibdzhon.livedota.R
+import com.sokhibdzhon.livedota.data.model.MatchId
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
 import com.sokhibdzhon.livedota.ui.common.MatchesAdapter
 import com.sokhibdzhon.livedota.util.extensions.toast
@@ -72,10 +73,10 @@ class MatchesFragment : Fragment() {
         }
     }
 
-    private fun navigateToMatchDetails(matchId: Long, leagueName: String) {
+    private fun navigateToMatchDetails(matchId: MatchId, leagueName: String) {
         val direction =
             MatchesFragmentDirections.actionMatchesFragmentToMatchDetailsFragment(
-                matchId,
+                matchId.value,
                 leagueName
             )
         this.findNavController().navigate(direction)

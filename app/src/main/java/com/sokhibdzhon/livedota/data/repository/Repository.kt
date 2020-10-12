@@ -2,6 +2,7 @@ package com.sokhibdzhon.livedota.data.repository
 
 import com.sokhibdzhon.livedota.data.Resource
 import com.sokhibdzhon.livedota.data.local.entity.ProMatches
+import com.sokhibdzhon.livedota.data.model.MatchId
 import com.sokhibdzhon.livedota.data.network.model.heroes.Heroes
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.MatchDetails
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.Player
@@ -25,7 +26,7 @@ interface Repository {
     suspend fun removeMatchFromFavorite(match: ProMatches)
 
     //Steam
-    fun fetchMatchDetails(matchId: Long): Flow<Resource<MatchDetails>>
+    fun fetchMatchDetails(matchId: MatchId): Flow<Resource<MatchDetails>>
     fun fetchTeamLogo(ugcId: Long): Flow<Resource<TeamLogo>>
 
     //OpenDota

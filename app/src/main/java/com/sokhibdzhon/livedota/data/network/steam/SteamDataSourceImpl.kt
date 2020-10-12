@@ -1,6 +1,7 @@
 package com.sokhibdzhon.livedota.data.network.steam
 
 import com.sokhibdzhon.livedota.data.Resource
+import com.sokhibdzhon.livedota.data.model.MatchId
 import com.sokhibdzhon.livedota.data.network.model.matchdetails.MatchDetails
 import com.sokhibdzhon.livedota.data.network.model.teamitem.TeamLogo
 import kotlinx.coroutines.flow.Flow
@@ -20,15 +21,15 @@ import javax.inject.Inject
 
 class SteamDataSourceImpl @Inject constructor(val steamApiService: SteamApiService) :
     SteamDataSource {
-    override fun fetchMatchDetails(matchId: Long): Flow<Resource<MatchDetails>> = flow {
+    override fun fetchMatchDetails(matchId: MatchId): Flow<Resource<MatchDetails>> = flow {
         emit(Resource.loading())
         try {
             val matchDetails =
-                steamApiService.getMatchDetailsByMatchId(matchId = matchId)
+                steamApiService.getMatchDetailsByMatchId(matchId = matchId.value)
             emit(Resource.success(matchDetails))
         } catch (exception: Exception) {
             Timber.d("$exception")
-            emit(Resource.error<MatchDetails>(exception.message ?: "Error loading Pro Matches"))
+            emit(Resource.error(exception.message ?: "Error loading Pro Matches"))
         }
     }
 
@@ -41,7 +42,7 @@ class SteamDataSourceImpl @Inject constructor(val steamApiService: SteamApiServi
 
         } catch (exception: Exception) {
             Timber.d("$exception")
-            emit(Resource.error<TeamLogo>(exception.message ?: "Error loading Pro Matches"))
+            emit(Resource.error(exception.message ?: "Error loading Pro Matches"))
         }
     }
 }

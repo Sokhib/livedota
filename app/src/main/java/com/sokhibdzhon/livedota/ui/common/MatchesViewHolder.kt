@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.data.local.entity.ProMatches
+import com.sokhibdzhon.livedota.data.model.MatchId
 import com.sokhibdzhon.livedota.databinding.MatchItemBinding
 import com.sokhibdzhon.livedota.ui.matches.MatchesItemViewState
 
@@ -20,13 +21,13 @@ import com.sokhibdzhon.livedota.ui.matches.MatchesItemViewState
 
 class MatchesViewHolder(
     private val binding: MatchItemBinding,
-    private val onMatchItemClicked: ((Long, String) -> Unit)?,
+    private val onMatchItemClicked: ((MatchId, String) -> Unit)?,
     private val onFavoriteClicked: ((ProMatches) -> Unit)?
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
         binding.constraintItem.setOnClickListener {
             onMatchItemClicked?.invoke(
-                binding.viewState!!.getMatchId(),
+                MatchId(binding.viewState!!.getMatchId()),
                 binding.viewState!!.getLeagueName()
             )
         }
@@ -51,7 +52,7 @@ class MatchesViewHolder(
     companion object {
         fun create(
             parent: ViewGroup,
-            onMatchItemClicked: ((Long, String) -> Unit)?,
+            onMatchItemClicked: ((MatchId, String) -> Unit)?,
             onFavoriteClicked: ((ProMatches) -> Unit)?
         ): MatchesViewHolder {
             val binding = DataBindingUtil.inflate<MatchItemBinding>(
