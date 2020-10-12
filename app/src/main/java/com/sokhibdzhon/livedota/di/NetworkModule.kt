@@ -12,11 +12,12 @@ import com.sokhibdzhon.livedota.data.network.steam.SteamDataSource
 import com.sokhibdzhon.livedota.data.network.steam.SteamDataSourceImpl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 
 /**     I ❤ Code:)
@@ -27,13 +28,12 @@ import javax.inject.Singleton
 ╚═════════════════════════════════════╝
  */
 @Module
+@InstallIn(ActivityComponent::class)
 class NetworkModule {
-    @Singleton
     @Provides
     @NonNull
     fun provideRetrofit(): Retrofit.Builder = Retrofit.Builder()
 
-    @Singleton
     @Provides
     @NonNull
     fun provideOpenDotaApiService(
@@ -46,7 +46,6 @@ class NetworkModule {
             .build()
             .create(OpenDotaApiService::class.java)
 
-    @Singleton
     @Provides
     @NonNull
     fun provideSteamApiService(
@@ -68,7 +67,6 @@ class NetworkModule {
     private fun provideSteamServerUrl() = BuildConfig.STEAM_URL
 
     @Provides
-    @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         return httpLoggingInterceptor.apply {
@@ -77,7 +75,6 @@ class NetworkModule {
     }
 
     @Provides
-    @Singleton
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
@@ -87,13 +84,11 @@ class NetworkModule {
     }
 
     @Provides
-    @Singleton
     fun provideSteamDataSource(steamApiService: SteamApiService): SteamDataSource =
         SteamDataSourceImpl(steamApiService)
 
 
     @Provides
-    @Singleton
     fun provideOpenDotaDataSource(openDotaApiService: OpenDotaApiService): OpenDotaDataSource =
         OpenDotaDataSourceImpl(openDotaApiService)
 }

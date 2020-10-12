@@ -1,6 +1,5 @@
 package com.sokhibdzhon.livedota.ui.matchdetails
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,32 +7,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import com.sokhibdzhon.livedota.BaseApplication
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.databinding.MatchDetailsFragmentBinding
 import com.sokhibdzhon.livedota.util.enums.Teams
 import com.sokhibdzhon.livedota.util.extensions.runIfNull
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MatchDetailsFragment : Fragment() {
 
-    private lateinit var viewModel: MatchDetailsViewModel
+    private val viewModel: MatchDetailsViewModel by viewModels()
     private lateinit var binding: MatchDetailsFragmentBinding
     private var matchId: Long = 0
     private var leagueName: String = "League Name"
-
-    @Inject
-    internal lateinit var matchDetailsViewModelFactory: ViewModelProvider.Factory
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (requireActivity().applicationContext as BaseApplication).appGraph.inject(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,10 +45,6 @@ class MatchDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(
-            this,
-            matchDetailsViewModelFactory
-        ).get(MatchDetailsViewModel::class.java)
         savedInstanceState.runIfNull {
             viewModel.loadMatchDetails(matchId)
         }

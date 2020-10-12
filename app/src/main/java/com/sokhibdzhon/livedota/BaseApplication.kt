@@ -1,8 +1,7 @@
 package com.sokhibdzhon.livedota
 
 import android.app.Application
-import com.sokhibdzhon.livedota.di.AppComponent
-import com.sokhibdzhon.livedota.di.DaggerAppComponent
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 
@@ -13,9 +12,8 @@ import timber.log.Timber
 ║ sokhibsaid@gmail.com                ║
 ╚═════════════════════════════════════╝
  */
-
+@HiltAndroidApp
 class BaseApplication : Application() {
-    val appGraph: AppComponent = DaggerAppComponent.factory().create(this)
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG)

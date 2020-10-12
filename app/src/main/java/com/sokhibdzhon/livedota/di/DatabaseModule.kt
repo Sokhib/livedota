@@ -6,6 +6,9 @@ import com.sokhibdzhon.livedota.data.local.DotaDatabase
 import com.sokhibdzhon.livedota.data.local.FavoriteMatchesDao
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 
 /**     I ❤ Code:)
@@ -17,9 +20,10 @@ import dagger.Provides
  */
 
 @Module
+@InstallIn(ActivityComponent::class)
 class DatabaseModule {
     @Provides
-    fun provideDatabase(context: Context): DotaDatabase =
+    fun provideDatabase(@ApplicationContext context: Context): DotaDatabase =
         Room.databaseBuilder(context, DotaDatabase::class.java, "dota-database").build()
 
 

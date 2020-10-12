@@ -32,7 +32,6 @@ class MatchesViewHolder(
         }
         binding.favoriteImageView.setOnClickListener {
 
-            //TODO: Add and remove from favorites.
             onFavoriteClicked?.invoke(binding.viewState!!.match)
         }
     }

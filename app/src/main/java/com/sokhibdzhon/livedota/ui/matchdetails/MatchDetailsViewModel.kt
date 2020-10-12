@@ -1,5 +1,6 @@
 package com.sokhibdzhon.livedota.ui.matchdetails
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,9 +12,8 @@ import com.sokhibdzhon.livedota.data.network.opendota.OpenDotaDataSourceImpl
 import com.sokhibdzhon.livedota.data.network.steam.SteamDataSourceImpl
 import com.sokhibdzhon.livedota.util.enums.Teams
 import kotlinx.coroutines.flow.*
-import javax.inject.Inject
 
-class MatchDetailsViewModel @Inject constructor(
+class MatchDetailsViewModel @ViewModelInject constructor(
     private val steamDataSourceImpl: SteamDataSourceImpl,
     private val openDotaDataSourceImpl: OpenDotaDataSourceImpl
 ) :

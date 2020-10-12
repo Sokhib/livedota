@@ -1,5 +1,6 @@
 package com.sokhibdzhon.livedota.ui.favorites
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +13,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
-class FavoritesViewModel @Inject constructor(val dotaRepositoryImpl: DotaRepositoryImpl) :
+class FavoritesViewModel @ViewModelInject constructor(val dotaRepositoryImpl: DotaRepositoryImpl) :
     ViewModel() {
 
     private val _favoredMatchesLiveData: MutableLiveData<FavoriteMatchesViewState> =

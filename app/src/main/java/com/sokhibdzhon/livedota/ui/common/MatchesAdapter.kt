@@ -13,7 +13,6 @@ import javax.inject.Inject
 ║ sokhibsaid@gmail.com                  ║
 ╚═══════════════════════════════════════╝
  */
-//TODO: What if to send onClick through constructor what to change in DI classes.
 class MatchesAdapter @Inject constructor() : RecyclerView.Adapter<MatchesViewHolder>() {
 
     private val matchesList = arrayListOf<ProMatches>()

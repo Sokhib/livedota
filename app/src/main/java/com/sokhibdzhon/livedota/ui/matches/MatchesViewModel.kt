@@ -1,5 +1,6 @@
 package com.sokhibdzhon.livedota.ui.matches
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,9 +12,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
-class MatchesViewModel @Inject constructor(val dotaRepositoryImpl: DotaRepositoryImpl) :
+class MatchesViewModel @ViewModelInject constructor(val dotaRepositoryImpl: DotaRepositoryImpl) :
     ViewModel() {
     private val _proMatchesLiveData: MutableLiveData<MatchesFragmentViewState> = MutableLiveData()
 
@@ -33,7 +33,6 @@ class MatchesViewModel @Inject constructor(val dotaRepositoryImpl: DotaRepositor
 //    private val data =
 //        openDotaDataSourceImpl.fetchProMatches().asLiveData(viewModelScope.coroutineContext)
 
-    //TODO:Check combineMatchSeries
     fun loadProMatches() {
         dotaRepositoryImpl.fetchProMatches()
             .combine(favoritedMatches, ::combineFavorites)

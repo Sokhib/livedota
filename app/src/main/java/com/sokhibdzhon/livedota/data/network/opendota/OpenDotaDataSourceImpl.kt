@@ -22,7 +22,6 @@ import javax.inject.Inject
 
 class OpenDotaDataSourceImpl @Inject constructor(private val openDotaApiService: OpenDotaApiService) :
     OpenDotaDataSource {
-    //TODO: try map, filter, drop, combine, flowOn, onCompletion here before emitting
     override fun fetchProMatches(): Flow<Resource<List<ProMatches>>> = flow {
         emit(Resource.loading())
         try {

@@ -7,7 +7,8 @@ import com.sokhibdzhon.livedota.data.repository.DotaRepositoryImpl
 import com.sokhibdzhon.livedota.data.repository.Repository
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 
 
 /**     I ❤ Code:)
@@ -18,11 +19,10 @@ import javax.inject.Singleton
 ╚═══════════════════════════════════════╝
  */
 
-
+@InstallIn(ActivityComponent::class)
 @Module(includes = [DatabaseModule::class, NetworkModule::class])
 class DataModule {
     @Provides
-    @Singleton
     fun provideRepository(
         steamDataSourceImpl: SteamDataSourceImpl,
         openDotaDataSourceImpl: OpenDotaDataSourceImpl,
