@@ -27,6 +27,7 @@ Sample Dota 2 eSports matches, leagues app based on MVVM architecture.
 </ul>
 </li>
 <li><a href="https://dagger.dev/">Dagger 2 </a> - dependency injection</li>
+<li><a href="https://dagger.dev/hilt/">Hilt</a> - dependency injection</li>
 <li><a href="https://github.com/square/retrofit">Retrofit2 &amp; Gson</a> - constructing the REST API</li>
 <li><a href="https://github.com/square/okhttp">OkHttp3</a> - used as logging interceptor </li>
 <li><a href="https://github.com/bumptech/glide">Glide</a> - for loading images </li>
