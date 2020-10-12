@@ -13,6 +13,12 @@
     <string name="recent_matches">Recent Matches</string>
     <string name="time">"%1$s''"</string>
     <string name="favorites_button">favorites button</string>
+    <string name="successfully_removed">Successfully Removed from Favorites</string>
+    <string name="successfully_added">Successfully Added to Favorites</string>
     <string name="dash">-</string>
     <string name="favored_matches">Favored Matches</string>
+    <string name="error_fetching">Error Fetching Match Details</string>
+    <string name="no_radiant_logo">No Radiant Logo</string>
+    <string name="no_dire_logo">No Dire Logo</string>
+    <string name="loading_players">Loading Players</string>
 </resources>

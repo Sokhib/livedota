@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +14,7 @@ import com.sokhibdzhon.livedota.data.Status
 import com.sokhibdzhon.livedota.databinding.MatchDetailsFragmentBinding
 import com.sokhibdzhon.livedota.util.enums.Teams
 import com.sokhibdzhon.livedota.util.extensions.runIfNull
+import com.sokhibdzhon.livedota.util.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,14 +54,13 @@ class MatchDetailsFragment : Fragment() {
 //        }
 
         //Get Match Details
-        viewModel.matchDetailsLiveData.observe(viewLifecycleOwner, Observer {
-            when (it.matchDetailsResource.status) {
+        viewModel.matchDetailsLiveData.observe(viewLifecycleOwner, Observer { matchDetails ->
+            when (matchDetails.matchDetailsResource.status) {
                 Status.SUCCESS -> {
-                    binding.viewState = it
+                    binding.viewState = matchDetails
                 }
                 Status.ERROR -> {
-                    Toast.makeText(activity, "Error fetching match details", Toast.LENGTH_SHORT)
-                        .show()
+                    toast(requireActivity(), getString(R.string.error_fetching))
                 }
             }
         })
@@ -80,8 +79,7 @@ class MatchDetailsFragment : Fragment() {
                     binding.radiantState = it
                 }
                 Status.ERROR -> {
-                    Toast.makeText(activity, "No Radiant Logo", Toast.LENGTH_SHORT)
-                        .show()
+                    toast(requireActivity(), getString(R.string.no_radiant_logo))
                 }
             }
         })
@@ -92,8 +90,7 @@ class MatchDetailsFragment : Fragment() {
                     binding.direState = it
                 }
                 Status.ERROR -> {
-                    Toast.makeText(activity, "No Dire Logo", Toast.LENGTH_SHORT)
-                        .show()
+                    toast(requireActivity(), getString(R.string.no_dire_logo))
                 }
             }
         })
@@ -105,7 +102,7 @@ class MatchDetailsFragment : Fragment() {
 
         viewModel.players.observe(viewLifecycleOwner, Observer { playersList ->
             when (playersList.size) {
-                1 -> Toast.makeText(activity, "Loading Players", Toast.LENGTH_SHORT).show()
+                1 -> toast(requireActivity(), getString(R.string.loading_players))
                 10 -> binding.playersState = PlayerViewState(playersList)
             }
         })

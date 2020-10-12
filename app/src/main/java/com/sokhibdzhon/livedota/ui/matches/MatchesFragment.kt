@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.sokhibdzhon.livedota.R
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
 import com.sokhibdzhon.livedota.ui.common.MatchesAdapter
+import com.sokhibdzhon.livedota.util.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -59,24 +58,13 @@ class MatchesFragment : Fragment() {
             navigateToMatchDetails(matchId, leagueName)
         }
         matchesAdapter.onFavoriteClicked = { proMatch ->
-            Timber.d("${proMatch.isFavorited}")
             when (proMatch.isFavorited) {
                 true -> {
-
                     viewModel.removeFromFavorites(proMatch)
-                    Toast.makeText(
-                        requireActivity(),
-                        "Successfully Removed from Favorites",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    toast(requireActivity(), getString(R.string.successfully_removed))
                 }
                 false -> {
-
-                    Toast.makeText(
-                        requireActivity(),
-                        "Successfully Added to Favorites",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    toast(requireActivity(), getString(R.string.successfully_added))
                     viewModel.addToFavorites(proMatch)
                 }
             }

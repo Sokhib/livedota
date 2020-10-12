@@ -1,5 +1,8 @@
 package com.sokhibdzhon.livedota.util.extensions
 
+import android.content.Context
+import android.widget.Toast
+
 
 /**     I ❤ Code:)
 ╔═══════════════════════════════════════╗
@@ -12,3 +15,6 @@ package com.sokhibdzhon.livedota.util.extensions
 fun Any?.runIfNull(block: () -> Unit) {
     if (this == null) block()
 }
+
+fun toast(context: Context, message: String) =
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
