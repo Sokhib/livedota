@@ -24,8 +24,13 @@ object Deps {
         "com.squareup.retrofit2:converter-gson:${Versions.retrofitVersion}"
     val loggingInterceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptorVersion}"
-    val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.daggerVersion}"
-    val dagger = "com.google.dagger:dagger:${Versions.daggerVersion}"
+
+    val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}"
+    val hiltCompilerX = "androidx.hilt:hilt-compiler:${Versions.hiltCompilerXVersion}"
+    val hilt = "com.google.dagger:hilt-android:${Versions.hiltVersion}"
+    val hiltLifecycleViewModel =
+        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltViewModelVersion}"
+
     val espressoCore =
         "androidx.test.espresso:espresso-core:${Versions.androidXTestEspressoCoreVersion}"
     val coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutineVersion}"

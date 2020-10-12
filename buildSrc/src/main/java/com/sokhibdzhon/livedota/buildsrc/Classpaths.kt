@@ -18,4 +18,6 @@ object Classpaths {
         "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
     val navigationSafeArgsClasspath =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navVersion}"
+    val hiltClasspath =
+        "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltVersion}"
 }
