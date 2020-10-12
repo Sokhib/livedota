@@ -68,9 +68,16 @@ class NetworkModule {
 
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        return httpLoggingInterceptor.apply {
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return HttpLoggingInterceptor().apply {
+            level =
+                when {
+                    BuildConfig.DEBUG -> {
+                        HttpLoggingInterceptor.Level.BODY
+                    }
+                    else -> {
+                        HttpLoggingInterceptor.Level.NONE
+                    }
+                }
         }
     }
 
