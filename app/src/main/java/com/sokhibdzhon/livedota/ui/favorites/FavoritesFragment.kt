@@ -17,7 +17,6 @@ import com.sokhibdzhon.livedota.databinding.FavoritesFragmentBinding
 import com.sokhibdzhon.livedota.ui.common.MatchesAdapter
 import com.sokhibdzhon.livedota.util.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -60,15 +59,14 @@ class FavoritesFragment : Fragment() {
         matchesAdapter.onMatchItemClicked = { matchId, leagueName ->
             navigateToMatchDetails(matchId, leagueName)
         }
-        matchesAdapter.onFavoriteClicked = { proMatch ->
-            Timber.d("${proMatch.isFavorited}")
+        matchesAdapter.onFavoriteClicked = { position, proMatch ->
             when (proMatch.isFavorited) {
                 true -> {
                     viewModel.removeFromFavorites(proMatch)
                     toast(requireActivity(), getString(R.string.successfully_removed))
                 }
             }
-            matchesAdapter.notifyDataSetChanged()
+            matchesAdapter.notifyItemChanged(position)
         }
 
     }

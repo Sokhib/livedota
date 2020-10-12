@@ -19,7 +19,7 @@ class MatchesAdapter @Inject constructor() : RecyclerView.Adapter<MatchesViewHol
 
     private val matchesList = arrayListOf<ProMatches>()
     var onMatchItemClicked: ((MatchId, LeagueName) -> Unit)? = null
-    var onFavoriteClicked: ((ProMatches) -> Unit)? = null
+    var onFavoriteClicked: ((Int, ProMatches) -> Unit)? = null
     fun setMatchList(matchesList: List<ProMatches>) {
         this.matchesList.apply {
             clear()

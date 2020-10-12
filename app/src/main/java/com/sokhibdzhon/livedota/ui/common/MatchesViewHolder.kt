@@ -23,7 +23,7 @@ import com.sokhibdzhon.livedota.ui.matches.MatchesItemViewState
 class MatchesViewHolder(
     private val binding: MatchItemBinding,
     private val onMatchItemClicked: ((MatchId, LeagueName) -> Unit)?,
-    private val onFavoriteClicked: ((ProMatches) -> Unit)?
+    private val onFavoriteClicked: ((Int, ProMatches) -> Unit)?
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
         binding.constraintItem.setOnClickListener {
@@ -34,7 +34,7 @@ class MatchesViewHolder(
         }
         binding.favoriteImageView.setOnClickListener {
 
-            onFavoriteClicked?.invoke(binding.viewState!!.match)
+            onFavoriteClicked?.invoke(adapterPosition, binding.viewState!!.match)
         }
     }
 
@@ -54,7 +54,7 @@ class MatchesViewHolder(
         fun create(
             parent: ViewGroup,
             onMatchItemClicked: ((MatchId, LeagueName) -> Unit)?,
-            onFavoriteClicked: ((ProMatches) -> Unit)?
+            onFavoriteClicked: ((Int, ProMatches) -> Unit)?
         ): MatchesViewHolder {
             val binding = DataBindingUtil.inflate<MatchItemBinding>(
                 LayoutInflater.from(parent.context),

@@ -59,7 +59,7 @@ class MatchesFragment : Fragment() {
         matchesAdapter.onMatchItemClicked = { matchId, leagueName ->
             navigateToMatchDetails(matchId, leagueName)
         }
-        matchesAdapter.onFavoriteClicked = { proMatch ->
+        matchesAdapter.onFavoriteClicked = { position, proMatch ->
             when (proMatch.isFavorited) {
                 true -> {
                     viewModel.removeFromFavorites(proMatch)
@@ -70,7 +70,7 @@ class MatchesFragment : Fragment() {
                     viewModel.addToFavorites(proMatch)
                 }
             }
-            matchesAdapter.notifyDataSetChanged()
+            matchesAdapter.notifyItemChanged(position)
         }
     }
 
