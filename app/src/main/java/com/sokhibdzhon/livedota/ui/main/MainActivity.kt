@@ -10,9 +10,9 @@ import com.sokhibdzhon.livedota.util.extensions.dismissRecreation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    override fun getLayoutRes(): Int = R.layout.activity_main
+//    override fun getLayoutRes(): Int = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

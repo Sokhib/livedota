@@ -15,15 +15,16 @@ import androidx.databinding.ViewDataBinding
 ╚═══════════════════════════════════════╝
  */
 
-abstract class BaseActivity<DB : ViewDataBinding> : AppCompatActivity() {
+abstract class BaseActivity<DB : ViewDataBinding>(@LayoutRes val layout: Int) :
+    AppCompatActivity() {
 
-    @LayoutRes
-    abstract fun getLayoutRes(): Int
+//    @LayoutRes
+//    abstract fun getLayoutRes(): Int
 
     val binding by lazy {
         DataBindingUtil.setContentView(
             this,
-            getLayoutRes()
+            layout
         ) as DB
     }
 
