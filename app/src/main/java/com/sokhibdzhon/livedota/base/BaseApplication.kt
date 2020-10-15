@@ -1,6 +1,7 @@
-package com.sokhibdzhon.livedota
+package com.sokhibdzhon.livedota.base
 
 import android.app.Application
+import com.sokhibdzhon.livedota.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
