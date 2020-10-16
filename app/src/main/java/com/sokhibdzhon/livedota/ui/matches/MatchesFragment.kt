@@ -1,15 +1,10 @@
 package com.sokhibdzhon.livedota.ui.matches
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.sokhibdzhon.livedota.R
+import com.sokhibdzhon.livedota.base.BaseFragment
 import com.sokhibdzhon.livedota.data.model.LeagueName
 import com.sokhibdzhon.livedota.data.model.MatchId
 import com.sokhibdzhon.livedota.databinding.MatchesFragmentBinding
@@ -20,22 +15,14 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MatchesFragment : Fragment() {
-
-
-    private lateinit var binding: MatchesFragmentBinding
+class MatchesFragment : BaseFragment<MatchesFragmentBinding>(R.layout.matches_fragment) {
 
     private val viewModel: MatchesViewModel by viewModels()
 
     @Inject
     lateinit var matchesAdapter: MatchesAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.matches_fragment, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
+    override fun init() {
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.loadProMatches()
             binding.swipeRefresh.isRefreshing = false
@@ -45,20 +32,16 @@ class MatchesFragment : Fragment() {
             adapter = matchesAdapter
             setHasFixedSize(true)
         }
-        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.proMatchesLiveData.observe(viewLifecycleOwner, Observer {
-            matchesAdapter.setMatchList(it.getProMatches())
-            binding.viewState = it
-            binding.executePendingBindings()
+        observeMatches()
+        onMatchClick()
+        onFavoriteClick()
+    }
 
-        })
-        matchesAdapter.onMatchItemClicked = { matchId, leagueName ->
-            navigateToMatchDetails(matchId, leagueName)
-        }
+    private fun onFavoriteClick() {
         matchesAdapter.onFavoriteClicked = { position, proMatch ->
             when (proMatch.isFavorited) {
                 true -> {
@@ -74,12 +57,27 @@ class MatchesFragment : Fragment() {
         }
     }
 
+    private fun onMatchClick() {
+        matchesAdapter.onMatchItemClicked = { matchId, leagueName ->
+            navigateToMatchDetails(matchId, leagueName)
+        }
+    }
+
+    private fun observeMatches() {
+        viewModel.proMatchesLiveData.observe(viewLifecycleOwner, Observer {
+            matchesAdapter.setMatchList(it.getProMatches())
+            binding.viewState = it
+            binding.executePendingBindings()
+
+        })
+    }
+
     private fun navigateToMatchDetails(matchId: MatchId, leagueName: LeagueName) {
         val direction =
             MatchesFragmentDirections.actionMatchesFragmentToMatchDetailsFragment(
                 matchId.value,
                 leagueName.value
             )
-        this.findNavController().navigate(direction)
+        navigate(direction)
     }
 }
