@@ -1,7 +1,7 @@
 # livedota
 Sample Dota 2 eSports matches, leagues app based on MVVM architecture. 
 
-Feature branch is on Dagger2 
+Feature branch is on Dagger2.<br>
 Migrated from Dagger2 to Hilt in <a href="https://github.com/Sokhib/livedota/tree/feature/hilt" rel="nofollow"> feature/hilt branch </a><br>
 Added base classes for Fragment, Activity in <a href="https://github.com/Sokhib/livedota/tree/feature/refactor" rel="nofollow"> feature/refactor branch </a> 
 
