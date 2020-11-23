@@ -16,7 +16,7 @@ object Versions {
     const val retrofitVersion = "2.6.1"
     const val lifecycleVersion = "2.2.0"
     const val coroutineVersion = "1.3.4"
-    const val gradleVersion = "6.7.1"
+    const val gradleVersion = "4.1.0"
     const val appcompatVersion = "1.1.0"
     const val gradleCrashlyticsVersion = "2.2.0"
     const val coreKtxVersion = "1.2.0"
